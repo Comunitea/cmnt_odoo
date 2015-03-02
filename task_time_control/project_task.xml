@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record model="ir.ui.view" id="view_task_kanban_task_time_control">
+            <field name="name">project.task.kanban.task_time_control</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <field name="categ_ids" position="after">
+                    <field name="working_users"/>
+                </field>
+                <xpath expr="//div[contains(@class, 'oe_kanban_bottom_right')]" position="after">
+                    <div class="oe_kanban_footer_left">
+                        <button name="work_start_btn" type="object" string="Start" icon="gtk-apply"/>
+                        <button name="work_end_btn" type="object" string="Stop" icon="gtk-cancel"/>
+                        <field name="working_users"/>
+                    </div>
+                </xpath>
+            </field>
+       </record>
+
+        <record model="ir.ui.view" id="project_task_time_control">
+            <field name="name">project.task.time.control.form</field>
+            <field name="model">project.task</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="other_users_ids" colspan="4"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="project_task_time_control_tree">
+            <field name="name">project.task.time.control.tree</field>
+            <field name="model">project.task</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="project.view_task_tree2" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <button name="work_start_btn" type="object" string="Start" icon="gtk-apply"/>
+                    <button name="work_end_btn" type="object" string="Stop" icon="gtk-cancel"   />
+                </field>
+                <field name="project_id" position="before">
+                    <field name="working_users"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="project_task_time_control_search_view">
+            <field name="name">project.task.time.control.search</field>
+            <field name="model">project.task</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="project.view_task_search_form" />
+            <field name="arch" type="xml">
+                <field name="user_id" position="replace">
+                    <field name="user_id">
+                    <filter domain="['|',('user_id','=',uid),('other_users_ids','in',uid)]" help="My Tasks" icon="terp-personal"/>
+                    <filter domain="[('user_id','=',False)]" help="Unassigned Tasks" icon="terp-personal-"/>
+                 </field>
+              </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="project_gtd.open_gtd_task">
+            <field name="name">My Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="search_view_id" ref="project_gtd.view_task_gtd_search"/>
+            <field name="context">{'set_editable':True,'set_visible':True,'gtd':True,'user_invisible':True, "search_default_open": 1}</field>
+            <field name="domain">['|',('user_id','=',uid),('other_users_ids','in',uid)]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,gantt,graph,kanban</field>
+        </record>
+
+    </data>
+</openerp>
+

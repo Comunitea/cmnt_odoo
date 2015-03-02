@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+        <record id="view_unify_issues" model="ir.ui.view">
+            <field name="name">unify.issues.form</field>
+            <field name="model">unify.issues</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Unify issues">
+                   <label string="Issue to remove"/>
+                   <field name="issues_remove_ids" nolabel="1"/>
+                   <newline/>
+                   <field name="unified_issue_id"/>
+                   <group colspan="4" col="6">
+                        <button icon="gtk-cancel" special="cancel" string="Cancel"/>
+                        <button string='Unify issues' icon="gtk-execute" name="unify_issues" type="object"/>
+                   </group>
+               </form>
+            </field>
+        </record>
+        <act_window id="action_unify_issues"
+            multi="True"
+            key2="client_action_multi" name="Unify issues"
+            res_model="unify.issues" src_model="project.issue"
+            view_mode="form" target="new" view_type="form" />
+    </data>
+</openerp>

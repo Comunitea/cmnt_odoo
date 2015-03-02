@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+        <record id="edit_project_add_float" model="ir.ui.view">
+            <field name="name">project.project.form.add_float</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name='currency_id' position="after">
+                    <field name="price_history_point"/>
+                    <field name="fix_by_sprint"/>
+                </field>
+                <field name="name" position="after">
+                    <field name="code"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -34,7 +34,7 @@
         "project_issue",
 
     ],
-    'update_xml': [
+    'data': [
         "security/project_security.xml",
         "project_scrum_view.xml",
         "project_issue_view.xml",
@@ -42,7 +42,6 @@
         "data/account_analytic_account_seq.xml",
         "wizard/unify_issues_wzd_view.xml"
     ],
-    'demo_xml': [],
     'test': [],
     'installable': True,
     'active': False,

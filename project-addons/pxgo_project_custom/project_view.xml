@@ -15,6 +15,11 @@
                 <field name="name" position="after">
                     <field name="code"/>
                 </field>
+                <page string="Team" position="after">
+                    <page string="Notes">
+                        <field name="description" nolabel="1" colspan="4"/>
+                    </page>
+                </page>
             </field>
         </record>
 

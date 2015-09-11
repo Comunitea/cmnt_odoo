@@ -10,7 +10,7 @@
         <record id="seq_default_account_analytic_account" model="ir.sequence">
             <field name="name">Default analytic account seq.</field>
             <field name="code">account.analytic.account.seq</field>
-            <field name="prefix">PXGO/</field>
+            <field name="prefix">CMNT/</field>
             <field name="padding">5</field>
             <field name="suffix">/%(year)s</field>
         </record>

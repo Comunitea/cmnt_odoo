@@ -32,7 +32,7 @@
         "project",
         "project_scrum",
         "project_issue",
-
+        "report"
     ],
     'data': [
         "security/project_security.xml",

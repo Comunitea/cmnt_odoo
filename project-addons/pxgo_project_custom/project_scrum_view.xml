@@ -17,6 +17,12 @@
             </field>
         </record>
 
+        <template id="external_layout_header_width" inherit_id="report.external_layout_header">
+            <xpath expr="//div[@t-field='company.partner_id']/.." position="attributes">
+                <attribute name="class">col-xs-12</attribute>
+            </xpath>
+        </template>
+
         <record id="view_scrum_is_form_add_boolean" model="ir.ui.view">
             <field name="name">project.scrum.us.form.add.boolean</field>
             <field name="model">project.scrum.us</field>

@@ -32,6 +32,7 @@
         "project",
         "project_scrum",
         "project_issue",
+        "project_issue_task",
         "report"
     ],
     'data': [

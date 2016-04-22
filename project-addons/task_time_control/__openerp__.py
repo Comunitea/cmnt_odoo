@@ -35,7 +35,7 @@
     'author': 'Pexego',
     'website': 'http://www.pexego.es',
     'images': [],
-    'depends': ['project','project_gtd'],
+    'depends': ['project', 'project_gtd'],
     'init_xml': [],
     'update_xml': [
         'project_task.xml',

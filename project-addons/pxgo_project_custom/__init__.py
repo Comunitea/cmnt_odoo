@@ -22,5 +22,6 @@
 import wizard
 import project_scrum
 import project_issue
+import project_task
 import project
 import account_analytic_account

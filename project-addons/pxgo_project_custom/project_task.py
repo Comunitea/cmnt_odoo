@@ -20,37 +20,29 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api
+from openerp import models, fields
 
 
-class ProjectIssue(models.Model):
-    _inherit = "project.issue"
+class ProjectTask(models.Model):
+    _inherit = "project.task"
 
-    project_scrum_product_backlog_id = fields.Many2one(
-        'project.scrum.product.backlog', 'Backlog')
-
-    @api.multi
-    def action_create_task(self):
-        """
-        Create and a related Task for the visit report, and open it's Form.
-        """
-        self.ensure_one()
-        res = super(ProjectIssue, self).action_create_task()
-        task_id = res.get('res_id', False)
-        if task_id:
-            task_obj = self.env['project.task'].browse(task_id)
-            task_obj.description = self.description
-        return res
+    description = fields.Html()
 
     def write(self, cr, uid, ids, vals, context=None):
-        res = super(ProjectIssue, self).write(cr, uid, ids, vals,
-                                              context=context)
+        stage_id = vals.get('stage_id', False)
+        res = super(ProjectTask, self).write(cr, uid, ids, vals,
+                                             context=context)
         ctr = True if 'update' not in context else context['update']
-        for issue in self.browse(cr, uid, ids, context=context):
-            if vals.get('description', False) and issue.task_id and ctr:
+        for task in self.browse(cr, uid, ids, context=context):
+            if vals.get('description', False) and task.issue_id and ctr:
                 vals = {'description': vals['description']}
                 ctx = context.copy()
                 ctx.update({'update': False})
-                self.pool.get('project.task').write(cr, uid, issue.task_id.id,
-                                                    vals, context=ctx)
+                task.issue_id.write(vals, context=ctx)
+                self.pool.get('project.issue').write(cr, uid, task.issue_id.id,
+                                                     vals, context=ctx)
+
+            if stage_id and task.issue_id:
+                task.issue_id.write({'stage_id': vals['stage_id']},
+                                    context=context)
         return res

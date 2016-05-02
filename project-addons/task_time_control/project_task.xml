@@ -26,6 +26,10 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="project.view_task_form2" />
             <field name="arch" type="xml">
+                <xpath expr="/form/header" position="inside">
+                     <button name="work_start_btn" type="object" string="Start" icon="gtk-apply"/>
+                     <button name="work_end_btn" type="object" string="Stop" icon="gtk-cancel"/>
+                </xpath>
                 <field name="company_id" position="after">
                     <field name="other_users_ids" colspan="4"/>
                 </field>

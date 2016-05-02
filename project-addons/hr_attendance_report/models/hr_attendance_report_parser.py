@@ -79,7 +79,8 @@ class HrAttendanceReport(models.AbstractModel):
                 if day_attendances['in_out_str']:
                     day_attendances['in_out_str'] = \
                         day_attendances['in_out_str'][:-3]
-                employee_attendance[employee.id].append(day_attendances)
+                if day_attendances['ord_hours']:
+                    employee_attendance[employee.id].append(day_attendances)
                 from_date += relativedelta(days=1)
             totals[employee.id] = {
                 'total': sum(x['ord_hours'] for x in

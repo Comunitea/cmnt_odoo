@@ -114,7 +114,7 @@ msgstr "Last Updated on"
 #. module: hr_attendance_report
 #: view:website:hr_attendance_report.print_attendance
 msgid "Name and surname"
-msgstr "Nombre y apelldiso"
+msgstr "Nombre y apellidos"
 
 #. module: hr_attendance_report
 #: view:website:hr_attendance_report.print_attendance

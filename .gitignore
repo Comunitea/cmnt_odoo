@@ -25,3 +25,6 @@ devel_*
 *.db
 *.mo
 *.pot
+*.pyc
+.mr.developer.cfg
+eggs-custom/

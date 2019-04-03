@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_hr_employee_rfid_key_user,hr_employee_rfid_key.user,model_hr_employee_rfid_key,,1,0,0,0
-access_hr_employee_rfid_key_manager,hr_employee_rfid_key.manager,model_hr_employee_rfid_key,base.group_hr_manager,1,1,1,1
-access_hr_employee_rfid_key_log_user,hr_employee_rfid_key_log.user,model_hr_employee_rfid_key_log,base.group_hr_user,1,0,0,0

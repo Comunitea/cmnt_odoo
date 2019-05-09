@@ -74,10 +74,12 @@
                                     <th>Normales</th>
                                 </tr>
                             </thead>
+                            <t t-set="cont_day" t-value="0"/>
                             <tbody>
                                 <tr t-foreach="attendances[o.id]" t-as="attendance">
                                     <td>
                                         <span t-esc="attendance['day']"/>
+                                        <t t-set="cont_day" t-value="cont_day + 1 "/>
                                     </td>
                                     <td>
                                         <t t-if="attendance['ord_hours']">
@@ -103,6 +105,7 @@
                                             <th>Ordinarias</th>
                                             <th>Complementarias</th>
                                             <th>Extras</th>
+                                            <th>Media</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -118,6 +121,9 @@
                                             </td>
                                             <td>
                                                 <span t-if="totals[o.id]['extra']" t-esc="totals[o.id]['extra']"/>
+                                            </td>
+                                            <td>
+                                                <span t-if="totals[o.id]['total']" t-esc="'%.2f'%(totals[o.id]['total'] / cont_day)"/>
                                             </td>
                                         </tr>
                                     </tbody>

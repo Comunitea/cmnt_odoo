@@ -43,12 +43,13 @@ class HrAttendanceReport(models.AbstractModel):
             to_date = datetime.strptime(to_date_s, '%Y-%m-%d').date()
             while from_date <= to_date:
                 from_date_1 = datetime.strftime(from_date, "%Y-%m-%d %H:%M:%S")
+                from_date_datetime = datetime.strptime(from_date_1, '%Y-%m-%d %H:%M:%S')
                 from_date_2 = datetime.strftime(from_date, "%Y-%m-%d 23:59:59")
                 attendances = self.env['hr.attendance'].search(
                     [('employee_id', '=', employee.id),
                      ('name', '>=', from_date_1),
                      ('name', '<=', from_date_2)], order='name asc')
-                day_attendances = {'ord_hours': 0, 'in_out_str': '',
+                day_attendances = {'ord_hours': 0, 'extra': 0, 'in_out_str': '',
                                    'day': from_date_1[8:10]}
                 used_ids = []
                 while len(attendances) - len(used_ids) >= 2:
@@ -76,6 +77,12 @@ class HrAttendanceReport(models.AbstractModel):
                                                     out_time.minute)
                     used_ids.append(in_attr.id)
                     used_ids.append(out_attr.id)
+                max_hours = employee.calendar_id.get_working_hours_of_date(from_date_datetime)[0]
+                extra_hours = day_attendances['ord_hours'] - max_hours
+                if day_attendances['ord_hours'] > max_hours:
+                    day_attendances['ord_hours'] = max_hours
+                if extra_hours:
+                    day_attendances['extra'] += extra_hours
                 if day_attendances['in_out_str']:
                     day_attendances['in_out_str'] = \
                         day_attendances['in_out_str'][:-3]
@@ -88,7 +95,7 @@ class HrAttendanceReport(models.AbstractModel):
                 'ordinary': sum(x['ord_hours'] for x in
                                 employee_attendance[employee.id]),
                 'complementary': 0,
-                'extra': 0
+                'extra': sum(x['extra'] for x in employee_attendance[employee.id]),
             }
         docargs = {
             'doc_ids': data['ids'],

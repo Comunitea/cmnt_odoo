@@ -17,7 +17,7 @@ class HrAttendance(models.Model):
             currently_working = employee.state == 'present' and True or False
             calendar = employee.calendar_id
             intervals = calendar.get_working_intervals_of_day(
-                compute_leaves=True)
+                compute_leaves=True, resource_id=employee.resource_id.id)
             if intervals:
                 intervals = intervals[0]
             if currently_working:

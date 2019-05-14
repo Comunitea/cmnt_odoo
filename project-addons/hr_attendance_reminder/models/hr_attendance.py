@@ -12,7 +12,7 @@ class HrAttendance(models.Model):
 
     @api.model
     def cron_attendance_reminder(self):
-        for employee in self.env['hr.employee'].search([]):
+        for employee in self.env['hr.employee'].search([('calendar_id', '!=', False)]):
 
             currently_working = employee.state == 'present' and True or False
             calendar = employee.calendar_id

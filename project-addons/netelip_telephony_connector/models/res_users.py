@@ -19,21 +19,11 @@
 #
 ##############################################################################
 
+from openerp import models, fields
 
-{
-    'name': 'Netelip Telephony Connector',
-    'summary': '',
-    'version': '8.0.1.0.0',
-    'category': 'Phone',
-    'website': 'comunitea.com',
-    'author': 'Comunitea',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'depends': [
-        'base_phone_popup',
-        'crm_phone'
-    ],
-    'data': ['views/company_view.xml',
-             'views/res_users_view.xml'],
-}
+
+class ResUsers(models.Model):
+
+    _inherit = "res.users"
+
+    netelip_ext = fields.Char("Netelip Extension")

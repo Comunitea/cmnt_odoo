@@ -77,12 +77,13 @@ class HrAttendanceReport(models.AbstractModel):
                                                     out_time.minute)
                     used_ids.append(in_attr.id)
                     used_ids.append(out_attr.id)
-                max_hours = employee.calendar_id.get_working_hours_of_date(from_date_datetime)[0]
-                extra_hours = day_attendances['ord_hours'] - max_hours
-                if day_attendances['ord_hours'] > max_hours:
-                    day_attendances['ord_hours'] = max_hours
-                if extra_hours:
-                    day_attendances['extra'] += extra_hours
+                if employee.calendar_id:
+                    max_hours = employee.calendar_id.get_working_hours_of_date(from_date_datetime)[0]
+                    extra_hours = day_attendances['ord_hours'] - max_hours
+                    if day_attendances['ord_hours'] > max_hours:
+                        day_attendances['ord_hours'] = max_hours
+                    if extra_hours > 0:
+                        day_attendances['extra'] += extra_hours
                 if day_attendances['in_out_str']:
                     day_attendances['in_out_str'] = \
                         day_attendances['in_out_str'][:-3]

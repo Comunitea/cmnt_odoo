@@ -89,7 +89,11 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <td>
+                                        <t t-if="attendance['extra']">
+                                            <span t-esc="attendance['extra']"  t-esc-options='{"widget": "time"}'/>
+                                        </t>
+                                    </td>
                                     <td>
                                         <span t-esc="attendance['in_out_str']"/>
                                     </td>
@@ -120,10 +124,10 @@
                                                 <span t-if="totals[o.id]['complementary']" t-esc="totals[o.id]['complementary']"/>
                                             </td>
                                             <td>
-                                                <span t-if="totals[o.id]['extra']" t-esc="totals[o.id]['extra']"/>
+                                                <span t-if="totals[o.id]['extra']" t-esc="totals[o.id]['extra']"  t-esc-options='{"widget": "time"}'/>
                                             </td>
                                             <td>
-                                                <span t-if="totals[o.id]['total']" t-esc="'%.2f'%(totals[o.id]['total'] / cont_day)"/>
+                                                <span t-if="totals[o.id]['total']" t-esc="totals[o.id]['total'] / cont_day"  t-esc-options='{"widget": "time"}'/>
                                             </td>
                                         </tr>
                                     </tbody>

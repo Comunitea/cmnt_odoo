@@ -20,8 +20,66 @@
 ##############################################################################
 
 from openerp import models, api
+import logging
 
 
-class PhoneCommon(models.AbstractModel):
+logger = logging.getLogger(__name__)
 
-    _inherit = "phone.common"
+
+class ResPartner(models.Model):
+
+    _inherit = "res.partner"
+
+    def _prepare_incall_pop_action(
+            self, cr, uid, record_res, number, context=None):
+        action = False
+        if record_res:
+            obj = self.pool[record_res[0]]
+            action = {
+                'name': obj._description,
+                'type': 'ir.actions.act_window',
+                'res_model': record_res[0],
+                'view_mode': 'form,tree',
+                'views': [[False, 'form']],  # Beurk, but needed
+                'target': 'new',
+                'res_id': record_res[1],
+                }
+        else:
+            action = {
+                'name': _('Number Not Found'),
+                'type': 'ir.actions.act_window',
+                'res_model': 'number.not.found',
+                'view_mode': 'form',
+                'views': [[False, 'form']],  # Beurk, but needed
+                'target': 'new',
+                'context': {'default_calling_number': number}
+            }
+        return action
+
+    def incall_notify_by_login(
+            self, cr, uid, number, login_list, context=None):
+        assert isinstance(login_list, list), 'login_list must be a list'
+        res = self.get_record_from_phone_number(
+            cr, uid, number, context=context)
+        user_ids = self.pool['res.users'].search(
+            cr, uid, [('login', 'in', login_list)], context=context)
+        logger.debug(
+            'Notify incoming call from number %s to users %s'
+            % (number, user_ids))
+        action = self._prepare_incall_pop_action(
+            cr, uid, res, number, context=context)
+        if action:
+            users = self.pool['res.users'].read(
+                cr, uid, user_ids, ['context_incall_popup'], context=context)
+            for user in users:
+                if user['context_incall_popup']:
+                    self.pool['action.request'].notify(
+                        cr, user['id'], action)
+                    logger.debug(
+                        'This action has been sent to user ID %d: %s'
+                        % (user['id'], action))
+        if res:
+            callerid = res[2]
+        else:
+            callerid = False
+        return callerid

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_general_configuration" model="ir.ui.view">
+            <field name="name">base.config.settings.signup</field>
+            <field name="model">base.config.settings</field>
+            <field name="inherit_id" ref="base_setup.view_general_configuration"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='email']/.." position="after">
+                    <group>
+		        <label for="id" string="Voip"/>
+			<div name="voip">
+                            <label for="netelip_api_key"/>
+                            <field name="netelip_api_key" class="oe_inline"/>
+                            <label for="netelip_webdav_hostname"/>
+                            <field name="netelip_webdav_hostname" class="oe_inline"/>
+                            <label for="netelip_phone"/>
+                            <field name="netelip_phone" class="oe_inline"/>
+                            <br/>
+                            <label for="netelip_webdav_login"/>
+                            <field name="netelip_webdav_login" class="oe_inline"/>
+                            <label for="netelip_webdav_password"/>
+                            <field name="netelip_webdav_password" password="True" class="oe_inline"/>
+                        </div>
+                    </group>
+                </xpath>
+             </field>
+         </record>
+
+      </data>
+</openerp>

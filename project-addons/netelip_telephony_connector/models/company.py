@@ -27,6 +27,10 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     netelip_api_key = fields.Char("Netelip API Key")
+    netelip_webdav_hostname = fields.Char("Netelip Webdav Host")
+    netelip_webdav_login = fields.Char("Netelip Webdav Login")
+    netelip_webdav_password = fields.Char("Netelip Webdav Password")
+    netelip_phone = fields.Char("Netelip Phone")
 
 
 class BaseConfigSettings(models.TransientModel):
@@ -36,7 +40,35 @@ class BaseConfigSettings(models.TransientModel):
     netelip_api_key = fields.Char("Netelip API Key",
                                   default=lambda s: s.env.user.company_id.
                                   netelip_api_key)
+    netelip_webdav_hostname = fields.Char("Netelip Webdav Host",
+                                          default=lambda s: s.env.user.
+                                          company_id.netelip_webdav_hostname)
+    netelip_webdav_password = fields.Char("Netelip Webdav Password",
+                                          default=lambda s: s.env.user.
+                                          company_id.netelip_webdav_password)
+    netelip_webdav_login = fields.Char("Netelip Webdav Login",
+                                       default=lambda s: s.env.user.
+                                       company_id.netelip_webdav_login)
+    netelip_phone = fields.Char("Netelip Phone",
+                                default=lambda s: s.env.user.
+                                company_id.netelip_phone)
 
     @api.multi
     def set_netelip_api_key(self):
         self.env.user.company_id.netelip_api_key = self.netelip_api_key
+
+    @api.multi
+    def set_netelip_webdav_hostname(self):
+        self.env.user.company_id.netelip_webdav_hostname = self.netelip_webdav_hostname
+
+    @api.multi
+    def set_netelip_webdav_login(self):
+        self.env.user.company_id.netelip_webdav_login = self.netelip_webdav_login
+
+    @api.multi
+    def set_netelip_webdav_password(self):
+        self.env.user.company_id.netelip_webdav_password = self.netelip_webdav_password
+
+    @api.multi
+    def set_netelip_phone(self):
+        self.env.user.company_id.netelip_phone = self.netelip_phone

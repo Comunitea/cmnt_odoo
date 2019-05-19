@@ -157,9 +157,9 @@ msgid "VAT"
 msgstr "CIF"
 
 #. module: hr_attendance_report
-#: view:website:hr_attendance_report.print_attendance
-msgid "Worker attendance record"
-msgstr "REGISTRO DE JORNADA DE TRABAJADORES"
+#: model:ir.ui.view,arch_db:hr_attendance_report.print_attendance
+msgid "<strong>Worker attendance record</strong>"
+msgstr "<strong>REGISTRO DE JORNADA DE TRABAJADORES</strong>"
 
 #. module: hr_attendance_report
 #: view:website:hr_attendance_report.print_attendance

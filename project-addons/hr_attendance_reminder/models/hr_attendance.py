@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2019 Comunitea
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from openerp import models, api
+from odoo import models, api
 from datetime import datetime
 from datetime import timedelta
 
@@ -27,12 +27,10 @@ class HrAttendance(models.Model):
     def cron_attendance_reminder(self):
         for employee in self.env['hr.employee'].search(
                 [('calendar_id', '!=', False)]):
-            currently_working = employee.state == 'present' and True or False
+            currently_working = employee.attendance_state == 'checked_in' and True or False
             calendar = employee.calendar_id
             intervals = calendar.get_working_intervals_of_day(
                 compute_leaves=True, resource_id=employee.resource_id.id)
-            if intervals:
-                intervals = intervals[0]
             if currently_working:
                 try:
                     nearest_interval = self.get_nearest_interval(intervals)

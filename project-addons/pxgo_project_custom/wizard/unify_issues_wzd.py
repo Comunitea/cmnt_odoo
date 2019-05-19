@@ -19,21 +19,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import osv, fields
-from openerp import _
+from odoo import models, fields, api
 
 
-class unify_issues(osv.osv_memory):
+class UnifyIssues(models.TransientModel):
     _name = 'unify.issues'
     _description = 'Unify issues'
-    _columns = {
-        'issues_remove_ids': fields.many2many('project.issue','project_issue_remove', 'remove_issue_id', 'issue_id', 'Issues', required=True),
-        'unified_issue_id': fields.many2one('project.issue','Unified issue', required=True)
-    }
-    def unify_issues(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-        form_obj = self.browse(cr, uid, ids, context=context)[0]
+
+    issues_remove_ids = fields.\
+        Many2many('project.issue', 'project_issue_remove', 'remove_issue_id',
+                  'issue_id', 'Issues', required=True)
+    unified_issue_id = fields.Many2one('project.issue', 'Unified issue',
+                                       required=True)
+
+    @api.multi
+    def unify_issues(self):
+        self.ensure_one()
+        form_obj = self
         issues_to_remove = []
         messages = []
         if form_obj.unified_issue_id:
@@ -47,14 +49,9 @@ class unify_issues(osv.osv_memory):
                             messages.append(message.id)
                     issues_to_remove.append(issue_remove.id)
             if messages:
-                self.pool.get('project.issue').write(cr, uid, [form_obj.unified_issue_id.id], {'message_ids': [(6,0,messages)]})
+                form_obj.unified_issue_id.write({'message_ids':
+                                                 [(6, 0, messages)]})
             if issues_to_remove:
-                self.pool.get('project.issue').unlink(cr, uid, issues_to_remove)
-
-
+                issues_to_remove.unlink()
 
         return {'type': 'ir.actions.act_window_close'}
-
-
-
-unify_issues()

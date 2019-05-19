@@ -22,77 +22,78 @@
 #
 ##############################################################################
 
-from openerp.osv import fields,osv
+from odoo import fields, models, api
 import time
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from datetime import datetime, date
 
-class task_time_control_confirm_wizard(osv.osv_memory):
+
+class TaskTimeControlConfirmWizard(models.TransientModel):
     _name = 'task.time.control.confirm.wizard'
 
-    def getUserTask(self, cr, uid,ids, context=None):
+    @api.multi
+    def getUserTask(self):
         user = False
-        usr_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
-        if usr_task_id:
-            user = self.pool.get('time.control.user.task').browse(cr, uid, usr_task_id[0])
+        user = self.env['time.control.user.task'].\
+            search([('user', '=', self.env.user.id)], limit=1)
         return user
 
-    def see_started_tasks(self, cr, uid,ids, context=None):
-        user = self.getUserTask(cr,uid,ids,context)
+    @api.multi
+    def see_started_tasks(self):
+        user = self.getUserTask()
         return (user and user.started_task.id or False)
 
-
-    def get_time(self, cr, uid,ids, context=None):
-        user = self.getUserTask(cr,uid,ids,context)
+    @api.multi
+    def get_time(self):
+        user = self.getUserTask()
         if user:
-            start_datetime = datetime.strptime(user.work_start, DEFAULT_SERVER_DATETIME_FORMAT)
-            end_datetime = datetime.strptime(user.work_end, DEFAULT_SERVER_DATETIME_FORMAT)
+            start_datetime = fields.Datetime.from_string(user.work_start)
+            end_datetime = fields.Datetime.from_string(user.work_end)
             end_seconds = time.mktime(end_datetime.timetuple())
             start_seconds = time.mktime(start_datetime.timetuple())
             diff_hours = (end_seconds - start_seconds)/60/60
         return (user and diff_hours or 0.00)
 
-    _columns = {
-        'task_to_start':fields.many2one('project.task','Task to init'),
-        'user_task':fields.many2one('time.control.user.task','User task'),
-        'started_task':fields.many2one('project.task', 'Started Task'),
-        'name' : fields.char('name', size=128),
-        'time' : fields.float('time')
-    }
+    task_to_start = fields.Many2one('project.task', 'Task to init')
+    user_task = fields.Many2one('time.control.user.task', 'User task')
+    started_task = fields.Many2one('project.task', 'Started Task',
+                                   default=see_started_tasks)
+    name = fields.Char('Name', size=128)
+    ttime = fields.Float('Time', oldname="time", default=get_time)
 
-    _defaults = {
-        'time': get_time,
-        'started_task' : see_started_tasks
-    }
-
-
-    def close_confirm(self,cr,uid,ids,context={}):
-        wizard = self.browse(cr, uid, ids[0])
+    @api.multi
+    def close_confirm(self):
+        self.ensure_one()
+        wizard = self
         user_task = wizard.user_task
         started_task = user_task.started_task
-        start_datetime = datetime.strptime(user_task.work_start, DEFAULT_SERVER_DATETIME_FORMAT)
-        end_datetime = datetime.strptime(user_task.work_end, DEFAULT_SERVER_DATETIME_FORMAT)
+        start_datetime = user_task.work_start
+        end_datetime = user_task.work_end
         args = {
-            'name': wizard.name ,
-            'date': end_datetime.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+            'name': wizard.name,
+            'date': end_datetime,
             'task_id': started_task.id,
-            'hours': wizard.time,
-            'user_id': uid,
-            'company_id' : started_task.company_id and started_task.company_id.id or False,
-            'work_start' : start_datetime,
-            'work_end' : end_datetime
+            'unit_amount': wizard.ttime,
+            'user_id': self.env.user.id,
+            'project_id': started_task.project_id.id,
+            'company_id': started_task.company_id and
+            started_task.company_id.id or False,
+            'work_start': start_datetime,
+            'work_end': end_datetime
          }
-        work_id = self.pool.get("project.task.work").create(cr,uid,args)
-        self.pool.get('time.control.user.task').write(cr, uid, user_task.id, {'work_start':None,'work_end':None,'started_task':None})
-        other_users_in_task = self.pool.get('time.control.user.task').search(cr,uid,[('started_task','=',started_task.id)],count=True)
-        if other_users_in_task == 0:
-            ttype = self.pool.get('project.task').stage_find(cr, uid, [started_task], False, [('name', 'ilike', '%devel%')])
-            self.pool.get('project.task').write(cr, uid, started_task.id, {'stage_id': ttype})
-        if wizard.task_to_start.id != False:
-            start_id = wizard.task_to_start.id
-            ttype = self.pool.get('project.task').stage_find(cr, uid, [started_task], False, [('name', 'ilike', '%working%')], context=context)
-            self.pool.get('project.task').write(cr,uid,start_id,{'stage_id': ttype})
-            self.pool.get('time.control.user.task').write(cr, uid, user_task.id, {'work_start':end_datetime, 'started_task':start_id})
-        return {'type':'ir.actions.act_window_close'}
-
-task_time_control_confirm_wizard()
+        self.env["account.analytic.line"].create(args)
+        user_task.write({'work_start': None,
+                         'work_end': None,
+                         'started_task': None})
+        other_users_in_task = self.env['time.control.user.task'].\
+            search([('started_task', '=', started_task.id)])
+        if not other_users_in_task:
+            #TOCHECK
+            ttype = started_task.stage_find([('name', 'ilike', '%devel%')])
+            started_task.write({'stage_id': ttype})
+        if wizard.task_to_start:
+            start_id = wizard.task_to_start
+            #TOCHECK
+            ttype = started_task.stage_find([('name', 'ilike', '%working%')])
+            start_id.write({'stage_id': ttype})
+            user_task.write({'work_start': end_datetime,
+                             'started_task': start_id.id})
+        return {'type': 'ir.actions.act_window_close'}

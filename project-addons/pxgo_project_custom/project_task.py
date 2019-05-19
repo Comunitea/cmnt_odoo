@@ -20,7 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from odoo import models, fields, api
 
 
 class ProjectTask(models.Model):
@@ -28,21 +28,19 @@ class ProjectTask(models.Model):
 
     description = fields.Html()
 
-    def write(self, cr, uid, ids, vals, context=None):
+    @api.multi
+    def write(self, vals):
         stage_id = vals.get('stage_id', False)
-        res = super(ProjectTask, self).write(cr, uid, ids, vals,
-                                             context=context)
-        ctr = True if 'update' not in context else context['update']
-        for task in self.browse(cr, uid, ids, context=context):
+        res = super(ProjectTask, self).write(vals)
+        ctr = True if 'update' not in self.env.context else \
+            self.env.context['update']
+        for task in self:
             if vals.get('description', False) and task.issue_id and ctr:
                 vals = {'description': vals['description']}
-                ctx = context.copy()
+                ctx = self.env.context.copy()
                 ctx.update({'update': False})
-                task.issue_id.write(vals, context=ctx)
-                self.pool.get('project.issue').write(cr, uid, task.issue_id.id,
-                                                     vals, context=ctx)
+                task.issue_id.with_context(ctx).write(vals)
 
             if stage_id and task.issue_id:
-                task.issue_id.write({'stage_id': vals['stage_id']},
-                                    context=context)
+                task.issue_id.write({'stage_id': vals['stage_id']})
         return res

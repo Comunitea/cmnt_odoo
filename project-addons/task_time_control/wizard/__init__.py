@@ -21,4 +21,4 @@
 #
 ##############################################################################
 
-import task_time_control_confirm_wizard
+from . import task_time_control_confirm_wizard

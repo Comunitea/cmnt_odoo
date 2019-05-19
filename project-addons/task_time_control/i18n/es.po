@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* task_time_control
+#       * task_time_control
 #
 msgid ""
 msgstr ""
@@ -138,7 +138,7 @@ msgid "Task is alredy started."
 msgstr "La tarea ya esta empezada."
 
 #. module: task_time_control
-#: field:project.task.work,work_end:0
+#: field:account.analytic.line,work_end:0
 #: field:time.control.user.task,work_end:0
 msgid "Work end"
 msgstr "trabajo finalizado"
@@ -184,7 +184,7 @@ msgid "time.control.user.task"
 msgstr "time.control.user.task"
 
 #. module: task_time_control
-#: field:project.task.work,work_start:0
+#: field:account.analytic.line,work_start:0
 #: field:time.control.user.task,work_start:0
 msgid "Work start"
 msgstr "Trabajo empezado"

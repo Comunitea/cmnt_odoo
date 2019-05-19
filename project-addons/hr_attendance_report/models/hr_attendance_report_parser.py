@@ -27,7 +27,7 @@ class HrAttendanceReport(models.AbstractModel):
     _name = 'report.hr_attendance_report.print_attendance'
 
     @api.multi
-    def render_html(self, data=None):
+    def render_html(self, docids, data=None):
         report_obj = self.env['report']
         report = report_obj._get_report_from_name(
             'hr_attendance_report.print_attendance')
@@ -47,42 +47,38 @@ class HrAttendanceReport(models.AbstractModel):
                 from_date_2 = datetime.strftime(from_date, "%Y-%m-%d 23:59:59")
                 attendances = self.env['hr.attendance'].search(
                     [('employee_id', '=', employee.id),
-                     ('name', '>=', from_date_1),
-                     ('name', '<=', from_date_2)], order='name asc')
+                     ('check_in', '>=', from_date_1),
+                     ('check_in', '<=', from_date_2),
+                     ('check_out', '!=', False)], order='check_in asc')
                 day_attendances = {'ord_hours': 0, 'extra': 0, 'in_out_str': '',
                                    'day': from_date_1[8:10]}
                 used_ids = []
-                while len(attendances) - len(used_ids) >= 2:
-                    in_attr = attendances.filtered(
-                        lambda r: r.id not in used_ids and
-                        r.action == 'sign_in')[0]
-                    out_attr = attendances.filtered(
-                        lambda r: r.id not in used_ids and
-                        r.action == 'sign_out')[0]
+                for attendance in attendances:
+
                     in_time = fields.Datetime.context_timestamp(
-                        self, datetime.strptime(in_attr.name,
+                        self, datetime.strptime(attendance.check_in,
                                                 "%Y-%m-%d %H:%M:%S"))
                     out_time = fields.Datetime.context_timestamp(
-                        self, datetime.strptime(out_attr.name,
+                        self, datetime.strptime(attendance.check_out,
                                                 "%Y-%m-%d %H:%M:%S"))
-                    day_attendances['ord_hours'] += out_attr.worked_hours
+                    day_attendances['ord_hours'] += attendance.worked_hours
 
                     fields.Datetime.context_timestamp(
-                        self, datetime.strptime(attendances[0].name,
+                        self, datetime.strptime(attendances[0].check_in,
                                                 "%Y-%m-%d %H:%M:%S"))
                     day_attendances['in_out_str'] += \
                         '%02d:%02d-%02d:%02d | ' % (in_time.hour,
                                                     in_time.minute,
                                                     out_time.hour,
                                                     out_time.minute)
-                    used_ids.append(in_attr.id)
-                    used_ids.append(out_attr.id)
+                    used_ids.append(attendance.id)
+                    used_ids.append(attendance.id)
                 if employee.calendar_id:
-                    max_hours = employee.calendar_id.get_working_hours_of_date(from_date_datetime)[0]
+                    max_hours = employee.calendar_id.get_working_hours_of_date(from_date_datetime, resource_id=employee.resource_id.id)
                     extra_hours = day_attendances['ord_hours'] - max_hours
                     if day_attendances['ord_hours'] > max_hours:
                         day_attendances['ord_hours'] = max_hours
-                    if extra_hours > 0:
+                    if extra_hours > 0.0:
                         day_attendances['extra'] += extra_hours
                 if day_attendances['in_out_str']:
                     day_attendances['in_out_str'] = \
@@ -92,11 +88,13 @@ class HrAttendanceReport(models.AbstractModel):
                 from_date += relativedelta(days=1)
             totals[employee.id] = {
                 'total': sum(x['ord_hours'] for x in
+                             employee_attendance[employee.id]) + sum(x['extra'] for x in
                              employee_attendance[employee.id]),
                 'ordinary': sum(x['ord_hours'] for x in
                                 employee_attendance[employee.id]),
                 'complementary': 0,
-                'extra': sum(x['extra'] for x in employee_attendance[employee.id]),
+                'extra': sum(x['extra'] for x in
+                                employee_attendance[employee.id])
             }
         docargs = {
             'doc_ids': data['ids'],
@@ -107,4 +105,4 @@ class HrAttendanceReport(models.AbstractModel):
             'totals': totals
         }
         return report_obj.render('hr_attendance_report.print_attendance',
-                                 docargs)
+docargs)

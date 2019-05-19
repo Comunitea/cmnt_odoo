@@ -30,14 +30,11 @@
     "depends" : [
         "base",
         "project",
-        "project_scrum",
         "project_issue",
         "project_issue_task",
         "report"
     ],
     'data': [
-        "security/project_security.xml",
-        "project_scrum_view.xml",
         "project_issue_view.xml",
         "project_view.xml",
         "data/account_analytic_account_seq.xml",

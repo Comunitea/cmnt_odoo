@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Attendance reminder',
-    'version': '8.0.1.0.0',
+    'version': '10.0.1.0.0',
     'summary': '',
     'category': 'Human Resources',
     'author': 'comunitea',
@@ -15,9 +15,8 @@
     ],
     'data': [
         'data/ir_cron.xml',
-        'data/email_template.xml',
-        'views/resource_calendar.xml',
-        'views/hr_employee.xml'
+        'data/mail_template.xml',
+        'views/resource_calendar.xml'
     ],
     'installable': True,
 }

@@ -19,9 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import wizard
-import project_scrum
-import project_issue
-import project_task
-import project
-import account_analytic_account
+from . import wizard
+from . import project_issue
+from . import project_task
+from . import account_analytic_account

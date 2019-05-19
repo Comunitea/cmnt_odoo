@@ -21,121 +21,110 @@
 #
 ##############################################################################
 
-import time
-from datetime import datetime, date
-from openerp import _
-from openerp.osv import fields, osv
-from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
-import openerp.exceptions
+from odoo import fields, _, exceptions, models, api
 
-class time_control_user_task(osv.osv):
+
+class TimeControlUserTask(models.Model):
     _name = 'time.control.user.task'
-    _columns = {
-         'user':fields.many2one('res.users','user'),
-         'work_start': fields.datetime('Work start'),
-         'work_end': fields.datetime('Work end'),
-         'started_task':fields.many2one('project.task', 'Started task')
-    }
-time_control_user_task()
 
-class project_task(osv.osv):
+    user = fields.Many2one('res.users', 'User')
+    work_start = fields.Datetime('Work start')
+    work_end = fields.Datetime('Work end')
+    started_task = fields.Many2one('project.task', 'Started task')
 
-    def _get_users_working(self, cr, uid, ids, field_name, args, context=None):
-        if context is None:
-            context = {}
-        res = {}
-        tasks = self.pool.get("project.task").browse(cr, uid, ids)
-        for task in tasks:
+
+class ProjectTask(models.Model):
+
+    @api.multi
+    def _get_users_working(self):
+        for task in self:
             stream = ''
-            user_task_ids = self.pool.get("time.control.user.task").search(cr,uid,[('started_task', '=', task.id)])
-            user_in_task =  self.pool.get("time.control.user.task").browse(cr, uid, user_task_ids)
-            if user_in_task:
-                for usr in user_in_task:
-                    if usr.user.name != None:
-                        stream+=usr.user.name+u","
-                res[task.id] = stream
-            else:
-                res[task.id] = False
-        return res
+            user_in_task = self.env["time.control.user.task"].\
+                search([('started_task', '=', task.id)])
+            for usr in user_in_task:
+                if usr.user.name:
+                    stream += usr.user.name + u","
+            task.working_users = stream
 
     _inherit = "project.task"
-    _columns = {
-        'other_users_ids': fields.many2many('res.users', 'project_task_user_rel', 'user_id', 'task_id', 'Other users'),
-        'working_users': fields.function(_get_users_working, method=True, string='Working users', type='char', size=255)
-     }
 
-    def stop_task(self,cr,uid,task_id,final,user_task,context=None):
-        if context is None:
-            context = {}
-        self.pool.get('time.control.user.task').write(cr, uid, user_task.id, {'work_end':final})
-        user_task = self.pool.get('time.control.user.task').browse(cr,uid,user_task.id)
-        #Call wizard:
-        wizard_id = self.pool.get("task.time.control.confirm.wizard").create(cr, uid, {'task_to_start':task_id,'user_task':user_task.id}, context=context)
+    other_users_ids = fields.Many2many('res.users', 'project_task_user_rel',
+                                       'user_id', 'task_id', 'Other users')
+    working_users = fields.Char('Working users', compute="_get_users_working",
+                                size=255)
+
+    @api.model
+    def stop_task(self, task_id, final, user_task):
+        user_task.write({'work_end': final})
+        wizard_id = self.env["task.time.control.confirm.wizard"].\
+            create({'task_to_start': task_id,
+                    'user_task': user_task.id})
         return {
-            'name':_("Confirm Time"),
+            'name': _("Confirm Time"),
             'view_mode': 'form',
             'view_id': False,
             'view_type': 'form',
             'res_model': 'task.time.control.confirm.wizard',
-            'res_id':wizard_id,
+            'res_id': wizard_id.id,
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'new',
             'domain': '[]',
-            'context': context
+            'context': self.env.context
         }
 
-    def work_start_btn(self,cr,uid,task_id,context):
-        start = datetime.now()
-        start = datetime.strftime(start, DEFAULT_SERVER_DATETIME_FORMAT)
-        user_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
-        if user_task_id:
-            user_task = self.pool.get('time.control.user.task').browse(cr,uid,user_task_id)[0]
+    @api.multi
+    def work_start_btn(self):
+        self.ensure_one()
+        start = fields.Datetime.now()
+        start = fields.Datetime.from_string(start)
+        user_task = self.env['time.control.user.task'].\
+            search([('user', '=', self.env.user.id)], limit=1)
+        task = self[0]
+        if user_task:
             if user_task.started_task:
-                if user_task.started_task.id == task_id[0]:
-                    raise osv.except_osv(_("Warning !"), _("Task is alredy started."))
-                return self.stop_task(cr,uid,task_id[0],start,user_task,context)
-
+                if user_task.started_task.id == task.id:
+                    raise exceptions.UserError(_("Task is alredy started."))
+                return task.stop_task(start, user_task)
             else:
-                task = self.pool.get('project.task').browse(cr,uid,task_id)[0]
-                ttype = self.pool.get('project.task').stage_find(cr, uid, [task], False, [('name', 'ilike', '%working%')], context=context)
-                self.pool.get('project.task').write(cr,uid,task_id,{'stage_id': ttype})
-                self.pool.get('time.control.user.task').write(cr, uid, user_task_id, {'work_start':start,'started_task':task_id[0]})
+                #TOCHECK
+                ttype = task.stage_find([('name', 'ilike', '%working%')])
+                task.write({'stage_id': ttype})
+                user_task.write({'work_start': start,
+                                 'started_task': task.id})
         else:
-            task = self.pool.get('project.task').browse(cr,uid,task_id)[0]
-            args={
-                'user': uid,
-                'work_start':start,
-                'started_task':task_id[0]
+            args = {
+                'user': self.env.user.id,
+                'work_start': start,
+                'started_task': task.id
             }
-            self.pool.get('time.control.user.task').create(cr,uid,args)
-            ttype = self.pool.get('project.task').stage_find(cr, uid,  [task], False, [('name', 'ilike', '%working%')], context=context)
-            self.pool.get('project.task').write(cr,uid,task_id,{'stage_id':ttype})
+            self.env['time.control.user.task'].create(args)
+            #TOCHECK
+            ttype = task.stage_find([('name', 'ilike', '%working%')])
+            task.write({'stage_id': ttype})
         return True
 
-
-    def work_end_btn(self,cr,uid,task_id,context):
-        end_datetime = datetime.now()
-        end_datetime = datetime.strftime(end_datetime, DEFAULT_SERVER_DATETIME_FORMAT)
-        user_task_id = self.pool.get('time.control.user.task').search(cr,uid,[('user', '=', uid)])
-        if user_task_id:
-            user_task = self.pool.get('time.control.user.task').browse(cr,uid,user_task_id[0])
-            if user_task.started_task.id == task_id[0]:
-                finished = self.stop_task(cr,uid,None,end_datetime,user_task,context)
+    @api.multi
+    def work_end_btn(self):
+        self.ensure_one()
+        end_datetime = fields.Datetime.now()
+        end_datetime = fields.Datetime.from_string(end_datetime)
+        user_task = self.env['time.control.user.task'].\
+            search([('user', '=', self.env.user.id)], limit=1)
+        if user_task:
+            if user_task.started_task.id == self.id:
+                finished = self.stop_task(None, end_datetime, user_task)
                 if finished:
                     return finished
                 else:
-                    raise osv.except_osv(_("Warning !"),_('Task is not init.'))
+                    raise exceptions.UserError(_('Task is not init.'))
             else:
-                raise osv.except_osv(_("Warning !"),_('Task init by another user.'))
+                raise exceptions.UserError(_('Task init by another user.'))
         return True
 
-project_task()
 
-class project_task_work(osv.osv):
-    _inherit = "project.task.work"
-    _columns = {
-        'work_start': fields.datetime('Work start'),
-        'work_end': fields.datetime('Work end')
-    }
-project_task_work()
+class AccountAnalyticLine(models.Model):
+    _inherit = "account.analytic.line"
+
+    work_start = fields.Datetime('Work start')
+    work_end = fields.Datetime('Work end')

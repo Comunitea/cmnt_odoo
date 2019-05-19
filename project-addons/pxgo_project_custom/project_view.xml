@@ -8,10 +8,6 @@
             <field name="inherit_id" ref="project.edit_project"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <field name='currency_id' position="after">
-                    <field name="price_history_point"/>
-                    <field name="fix_by_sprint"/>
-                </field>
                 <field name="name" position="after">
                     <field name="code"/>
                 </field>

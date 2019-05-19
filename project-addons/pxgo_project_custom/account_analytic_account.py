@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Copyright (C) 2004-2012 Pexego Sistemas Informáticos. All Rights Reserved
-#    $Omar Castiñeira Saavedra$ 
+#    $Omar Castiñeira Saavedra$
 #    $Marta Vázquez Rodríguez$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,14 +19,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import osv,fields
+#TODO: Migrar
+# ~ from openerp.osv import osv,fields
 
-class account_analytic_account(osv.osv):
-    _inherit = "account.analytic.account"
+# ~ class account_analytic_account(osv.osv):
+    # ~ _inherit = "account.analytic.account"
 
-    _defaults = {
-        'code': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid,'account.analytic.account.seq')
-    }
+    # ~ _defaults = {
+        # ~ 'code': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid,'account.analytic.account.seq')
+    # ~ }
 
 
-account_analytic_account()
+# ~ account_analytic_account()

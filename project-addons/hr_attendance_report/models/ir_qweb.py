@@ -26,7 +26,7 @@ from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 
 class QwebWidgetDate(models.AbstractModel):
     _name = 'ir.qweb.widget.date'
-    _inherit = 'ir.qweb.widget'
+    _inherit = 'ir.qweb.field.qweb'
 
     def _format(self, inner, options, qwebcontext):
         inner = self.pool['ir.qweb'].eval(inner, qwebcontext)
@@ -41,7 +41,7 @@ class QwebWidgetDate(models.AbstractModel):
 
 class QwebWidgetTime(models.AbstractModel):
     _name = 'ir.qweb.widget.time'
-    _inherit = 'ir.qweb.widget'
+    _inherit = 'ir.qweb.field.qweb'
 
     def _format(self, inner, options, qwebcontext):
         inner = self.pool['ir.qweb'].eval(inner, qwebcontext)

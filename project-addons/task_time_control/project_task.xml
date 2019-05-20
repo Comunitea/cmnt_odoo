@@ -7,13 +7,13 @@
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_kanban"/>
             <field name="arch" type="xml">
-                <field name="categ_ids" position="after">
+                <field name="tag_ids" position="after">
                     <field name="working_users"/>
                 </field>
                 <xpath expr="//div[contains(@class, 'oe_kanban_bottom_right')]" position="after">
                     <div class="oe_kanban_footer_left">
-                        <button name="work_start_btn" type="object" string="Start" icon="gtk-apply"/>
-                        <button name="work_end_btn" type="object" string="Stop" icon="gtk-cancel"/>
+                        <button name="work_start_btn" type="object" string="Start" icon="fa-play"/>
+                        <button name="work_end_btn" type="object" string="Stop" icon="fa-stop"/>
                         <field name="working_users"/>
                     </div>
                 </xpath>
@@ -27,8 +27,8 @@
             <field name="inherit_id" ref="project.view_task_form2" />
             <field name="arch" type="xml">
                 <xpath expr="/form/header" position="inside">
-                     <button name="work_start_btn" type="object" string="Start" icon="gtk-apply"/>
-                     <button name="work_end_btn" type="object" string="Stop" icon="gtk-cancel"/>
+                     <button name="work_start_btn" type="object" string="Start" icon="fa-play"/>
+                     <button name="work_end_btn" type="object" string="Stop" icon="fa-stop"/>
                 </xpath>
                 <field name="company_id" position="after">
                     <field name="other_users_ids" colspan="4"/>
@@ -43,8 +43,8 @@
             <field name="inherit_id" ref="project.view_task_tree2" />
             <field name="arch" type="xml">
                 <field name="name" position="before">
-                    <button name="work_start_btn" type="object" string="Start" icon="gtk-apply"/>
-                    <button name="work_end_btn" type="object" string="Stop" icon="gtk-cancel"   />
+                    <button name="work_start_btn" type="object" string="Start" icon="fa-play"/>
+                    <button name="work_end_btn" type="object" string="Stop" icon="fa-stop"/>
                 </field>
                 <field name="project_id" position="before">
                     <field name="working_users"/>
@@ -59,23 +59,10 @@
             <field name="type">search</field>
             <field name="inherit_id" ref="project.view_task_search_form" />
             <field name="arch" type="xml">
-                <field name="user_id" position="replace">
-                    <field name="user_id">
-                    <filter domain="['|',('user_id','=',uid),('other_users_ids','in',uid)]" help="My Tasks" icon="terp-personal"/>
-                    <filter domain="[('user_id','=',False)]" help="Unassigned Tasks" icon="terp-personal-"/>
-                 </field>
-              </field>
+                <filter name="my_tasks" position="attributes">
+                    <attribute name="domain">['|',('user_id','=',uid),('other_users_ids','in',[uid])]</attribute>
+                 </filter>
             </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="project_gtd.open_gtd_task">
-            <field name="name">My Tasks</field>
-            <field name="res_model">project.task</field>
-            <field name="search_view_id" ref="project_gtd.view_task_gtd_search"/>
-            <field name="context">{'set_editable':True,'set_visible':True,'gtd':True,'user_invisible':True, "search_default_open": 1}</field>
-            <field name="domain">['|',('user_id','=',uid),('other_users_ids','in',uid)]</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,calendar,gantt,graph,kanban</field>
         </record>
 
     </data>

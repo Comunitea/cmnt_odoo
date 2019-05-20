@@ -11,11 +11,11 @@
                     <newline/>
                     <field name="name" string="Name"/>
                     <newline/>
-                    <field name="time" string="Time" widget="float_time"/>
-                    <group colspan="4">
-                        <button string="Cancel" special="cancel" icon="gtk-cancel"/>
-                        <button string="Confirm" name="close_confirm" type="object" icon="gtk-ok"/>
-                    </group>
+                    <field name="ttime" string="Time" widget="float_time"/>
+                    <footer>
+                        <button string="Cancel" special="cancel"/>
+                        <button string="Confirm" name="close_confirm" type="object"/>
+                    </footer>
                 </form>
             </field>
         </record>

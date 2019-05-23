@@ -86,13 +86,13 @@ class TaskTimeControlConfirmWizard(models.TransientModel):
         other_users_in_task = self.env['time.control.user.task'].\
             search([('started_task', '=', started_task.id)])
         if not other_users_in_task:
-            #TOCHECK
-            ttype = started_task.stage_find([('name', 'ilike', '%devel%')])
+            ttype = started_task.stage_find(started_task.project_id.id,
+                                            [('name', 'ilike', '%devel%')])
             started_task.write({'stage_id': ttype})
         if wizard.task_to_start:
             start_id = wizard.task_to_start
-            #TOCHECK
-            ttype = started_task.stage_find([('name', 'ilike', '%working%')])
+            ttype = start_id.stage_find(start_id.project_id.id,
+                                        [('name', 'ilike', '%working%')])
             start_id.write({'stage_id': ttype})
             user_task.write({'work_start': end_datetime,
                              'started_task': start_id.id})

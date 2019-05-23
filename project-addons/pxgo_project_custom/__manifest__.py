@@ -35,13 +35,13 @@
         "report"
     ],
     'data': [
-        "project_issue_view.xml",
-        "project_view.xml",
+        "views/project_issue_view.xml",
+        "views/project_view.xml",
         "data/account_analytic_account_seq.xml",
         "wizard/unify_issues_wzd_view.xml"
     ],
     'test': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

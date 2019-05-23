@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api
+from odoo import models, fields, api
 
 
 class ResCompany(models.Model):
@@ -59,15 +59,18 @@ class BaseConfigSettings(models.TransientModel):
 
     @api.multi
     def set_netelip_webdav_hostname(self):
-        self.env.user.company_id.netelip_webdav_hostname = self.netelip_webdav_hostname
+        self.env.user.company_id.netelip_webdav_hostname = \
+            self.netelip_webdav_hostname
 
     @api.multi
     def set_netelip_webdav_login(self):
-        self.env.user.company_id.netelip_webdav_login = self.netelip_webdav_login
+        self.env.user.company_id.netelip_webdav_login = \
+            self.netelip_webdav_login
 
     @api.multi
     def set_netelip_webdav_password(self):
-        self.env.user.company_id.netelip_webdav_password = self.netelip_webdav_password
+        self.env.user.company_id.netelip_webdav_password = \
+            self.netelip_webdav_password
 
     @api.multi
     def set_netelip_phone(self):

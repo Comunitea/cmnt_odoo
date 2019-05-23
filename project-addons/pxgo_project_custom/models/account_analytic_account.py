@@ -19,15 +19,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-#TODO: Migrar
-# ~ from openerp.osv import osv,fields
 
-# ~ class account_analytic_account(osv.osv):
-    # ~ _inherit = "account.analytic.account"
-
-    # ~ _defaults = {
-        # ~ 'code': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid,'account.analytic.account.seq')
-    # ~ }
+from odoo import models, fields
 
 
-# ~ account_analytic_account()
+class AccountAnalyticAccount(models.Model):
+    _inherit = "account.analytic.account"
+
+    description = fields.Text("Description")
+    code = fields.Char(default=lambda s: s.env['ir.sequence'].
+                       next_by_code('account.analytic.account.seq'))

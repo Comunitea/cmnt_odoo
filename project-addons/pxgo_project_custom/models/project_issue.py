@@ -20,14 +20,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from odoo import models, fields, api
+from odoo import models, api
 
 
 class ProjectIssue(models.Model):
     _inherit = "project.issue"
-
-    project_scrum_product_backlog_id = fields.Many2one(
-        'project.scrum.product.backlog', 'Backlog')
 
     @api.multi
     def action_create_task(self):
@@ -42,15 +39,15 @@ class ProjectIssue(models.Model):
             task_obj.description = self.description
         return res
 
-    def write(self, cr, uid, ids, vals, context=None):
-        res = super(ProjectIssue, self).write(cr, uid, ids, vals,
-                                              context=context)
-        ctr = True if 'update' not in context else context['update']
-        for issue in self.browse(cr, uid, ids, context=context):
+    @api.multi
+    def write(self, vals):
+        res = super(ProjectIssue, self).write(vals)
+        ctr = True if 'update' not in self.env.context else \
+            self.env.context['update']
+        for issue in self:
             if vals.get('description', False) and issue.task_id and ctr:
                 vals = {'description': vals['description']}
-                ctx = context.copy()
+                ctx = self.env.context.copy()
                 ctx.update({'update': False})
-                self.pool.get('project.task').write(cr, uid, issue.task_id.id,
-                                                    vals, context=ctx)
+                issue.task_id.with_context(ctx).write(vals)
         return res

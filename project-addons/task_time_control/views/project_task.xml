@@ -12,8 +12,8 @@
                 </field>
                 <xpath expr="//div[contains(@class, 'oe_kanban_bottom_right')]" position="after">
                     <div class="oe_kanban_footer_left">
-                        <button name="work_start_btn" type="object" string="Start" icon="fa-play"/>
-                        <button name="work_end_btn" type="object" string="Stop" icon="fa-stop"/>
+                        <button name="work_start_btn" type="object">Start</button>
+                        <button name="work_end_btn" type="object">Stop</button>
                         <field name="working_users"/>
                     </div>
                 </xpath>

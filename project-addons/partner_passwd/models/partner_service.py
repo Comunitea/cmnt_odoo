@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-TODAY
-#    Pexego Sistemas Informáticos (http://www.pexego.es) All Rights Reserved
-#    $Jesús Ventosinos Mayor$
+#    OpenERP, Open Source Management Solution, third party addon
+#    Copyright (C) 2004-2015 Vertel AB (<http://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,6 +19,11 @@
 #
 ##############################################################################
 
-from . import models
-from . import wizard
+from odoo import models, fields
 
+
+class ResPartnerService(models.Model):
+    _name = "res.partner.service"
+    _description = "Service"
+
+    name = fields.Char(string='Name', index=True, readonly=False)

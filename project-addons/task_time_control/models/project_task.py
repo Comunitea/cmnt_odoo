@@ -85,10 +85,10 @@ class ProjectTask(models.Model):
             if user_task.started_task:
                 if user_task.started_task.id == task.id:
                     raise exceptions.UserError(_("Task is alredy started."))
-                return task.stop_task(start, user_task)
+                return task.stop_task(task.id, start, user_task)
             else:
-                #TOCHECK
-                ttype = task.stage_find([('name', 'ilike', '%working%')])
+                ttype = task.stage_find(task.project_id.id,
+                                        [('name', 'ilike', '%working%')])
                 task.write({'stage_id': ttype})
                 user_task.write({'work_start': start,
                                  'started_task': task.id})
@@ -99,8 +99,8 @@ class ProjectTask(models.Model):
                 'started_task': task.id
             }
             self.env['time.control.user.task'].create(args)
-            #TOCHECK
-            ttype = task.stage_find([('name', 'ilike', '%working%')])
+            ttype = task.stage_find(task.project_id.id,
+                                    [('name', 'ilike', '%working%')])
             task.write({'stage_id': ttype})
         return True
 

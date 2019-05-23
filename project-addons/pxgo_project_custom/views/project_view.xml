@@ -6,16 +6,15 @@
             <field name="name">project.project.form.add_float</field>
             <field name="model">project.project</field>
             <field name="inherit_id" ref="project.edit_project"/>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <field name="name" position="after">
                     <field name="code"/>
                 </field>
-                <page string="Team" position="after">
+                <notebook position="inside">
                     <page string="Notes">
                         <field name="description" nolabel="1" colspan="4"/>
                     </page>
-                </page>
+                </notebook>
             </field>
         </record>
 

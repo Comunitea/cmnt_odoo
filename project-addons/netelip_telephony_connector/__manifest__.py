@@ -23,7 +23,7 @@
 {
     'name': 'Netelip Telephony Connector',
     'summary': '',
-    'version': '8.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Phone',
     'website': 'comunitea.com',
     'author': 'Comunitea',
@@ -31,7 +31,6 @@
     'application': False,
     'installable': True,
     'depends': [
-        'base_phone_popup',
         'crm_phone'
     ],
     'data': ['views/company_view.xml',

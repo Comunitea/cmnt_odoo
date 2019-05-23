@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <openerp>
-    <data>
-        <record model="ir.sequence.type" id="seq_account_analytica_account_code">
-            <field name="name">Analytic account</field>
-            <field name="code">account.analytic.account.seq</field>
-        </record>
+    <data noupdate="1">
 
         <record id="seq_default_account_analytic_account" model="ir.sequence">
             <field name="name">Default analytic account seq.</field>

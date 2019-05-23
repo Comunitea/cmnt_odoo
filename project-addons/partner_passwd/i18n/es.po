@@ -1,0 +1,211 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#       * partner_passwd
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-23 18:15+0000\n"
+"PO-Revision-Date: 2019-05-23 18:15+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_passwd
+#: model:mail.template,body_html:partner_passwd.email_template_id
+msgid "\n"
+"                        \n"
+"                        <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 16px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"                        <p>Dear ${object.name}!</p>\n"
+"                        <p style=\"color:blue\"><font-size=\"14\">Here's your password:</font></p>\n"
+"                            ${object.passwd}    <br/><br/>\n"
+"                        </div>\n"
+"                        \n"
+"                    "
+msgstr "\n"
+"                        \n"
+"                        <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 16px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"                        <p>Hola ${object.name},</p>\n"
+"                        <p style=\"color:blue\"><font-size=\"14\">Aquí está su contraseña:</font></p>\n"
+"                            ${object.passwd}    <br/><br/>\n"
+"                        </div>\n"
+"                        \n"
+"                    "
+
+#. module: partner_passwd
+#: model:ir.model.fields,help:partner_passwd.field_res_partner_passwd_state
+msgid " * The 'Draft' status is used when the password is editable.\n"
+" * The 'Sent' status is used when the password has been sent to the user.\n"
+" * The'Cancelled'status is used when the password has been cancelled.\n"
+""
+msgstr " * El estado 'Borrador' se usa cuando la contraseña es editable.\n"
+" * El estado 'Enviado' se usa cuando la contraseña ha sido enviada al usuario.\n"
+" * El estado 'Cancelado' se usa cuando la contraseña ha sido cancelada.\n"
+""
+
+#. module: partner_passwd
+#: model:ir.ui.view,arch_db:partner_passwd.view_password_partner_form
+msgid "Cancel password"
+msgstr "Cancelar contraseña"
+
+#. module: partner_passwd
+#: selection:res.partner.passwd,state:0
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: partner_passwd
+#: code:addons/partner_passwd/models/partner_passwd.py:109
+#: code:addons/partner_passwd/models/partner_passwd.py:133
+#, python-format
+msgid "Compose Email"
+msgstr "Escribir email"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_create_uid
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_service_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_create_date
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_service_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: partner_passwd
+#: model:ir.model.fields,help:partner_passwd.field_res_partner_passwd_message_last_post
+msgid "Date of the last message posted on the record."
+msgstr "Fecha del último mensaje publicado en el registro."
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_display_name
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_service_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: partner_passwd
+#: selection:res.partner.passwd,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: partner_passwd
+#: model:ir.ui.view,arch_db:partner_passwd.view_password_partner_form
+msgid "Edit password"
+msgstr "Editar contraseña"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: partner_passwd
+#: model:ir.ui.view,arch_db:partner_passwd.view_password_partner_form
+msgid "Generate password"
+msgstr "Generar contraseña"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_id
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_service_id
+msgid "ID"
+msgstr "ID"
+
+#. module: partner_passwd
+#: model:ir.model.fields,help:partner_passwd.field_res_partner_passwd_message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_message_last_post
+msgid "Last Message Date"
+msgstr "Fecha del último mensaje"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd___last_update
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_service___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_write_uid
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_service_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_write_date
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_service_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_name
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_service_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: partner_passwd
+#: model:ir.model,name:partner_passwd.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_partner_id
+msgid "Partner id"
+msgstr "Empresa"
+
+#. module: partner_passwd
+#: model:ir.model,name:partner_passwd.model_res_partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_ids
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_passwd
+msgid "Password"
+msgstr "Contraseña"
+
+#. module: partner_passwd
+#: model:ir.ui.view,arch_db:partner_passwd.view_password_partner_form
+msgid "Passwords"
+msgstr "Contraseñas"
+
+#. module: partner_passwd
+#: model:ir.ui.view,arch_db:partner_passwd.view_password_partner_form
+msgid "Send Email"
+msgstr "Enviar correo"
+
+#. module: partner_passwd
+#: model:ir.ui.view,arch_db:partner_passwd.view_password_partner_form
+msgid "Send mail"
+msgstr "Enviar correo"
+
+#. module: partner_passwd
+#: selection:res.partner.passwd,state:0
+msgid "Sent"
+msgstr "Enviado"
+
+#. module: partner_passwd
+#: model:ir.model,name:partner_passwd.model_res_partner_service
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_service
+msgid "Service"
+msgstr "Servicio"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_state
+msgid "Status"
+msgstr "Estado"
+
+#. module: partner_passwd
+#: model:ir.model.fields,field_description:partner_passwd.field_res_partner_passwd_message_unread
+msgid "Unread Messages"
+msgstr "Mensajes sin leer"

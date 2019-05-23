@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <openerp>
     <data>
         <record model="ir.ui.view" id="project_issue_form_view_add_backlog">
             <field name="name">Project Issue Tracker Form add backlog</field>
             <field name="model">project.issue</field>
             <field name="inherit_id" ref="project_issue.project_issue_form_view"/>
-            <field name="type">form</field>
             <field name="arch" type="xml">
-                <field name="version_id" position="before">
-                    <field name="project_scrum_product_backlog_id"/>
-                </field>
-                <field name="description" position="replace">
-                    <field name="description" placeholder="Add an internal note..." groups="base.group_user" widget="html"/>
+                <field name="description" position="attributes">
+                    <attribute name="widget">html</attribute>
                 </field>
             </field>
         </record>

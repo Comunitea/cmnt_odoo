@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-11 14:40+0000\n"
-"PO-Revision-Date: 2015-09-11 14:40+0000\n"
+"POT-Creation-Date: 2019-05-23 18:13+0000\n"
+"PO-Revision-Date: 2019-05-23 18:13+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,165 +16,67 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: pxgo_project_custom
-#: help:project.scrum.us,point_price:0
-msgid "0 si es precio de proyecto"
-msgstr "0 si es precio de proyecto"
-
-#. module: pxgo_project_custom
-#: view:project.issue:pxgo_project_custom.project_issue_form_view_add_backlog
-msgid "Add an internal note..."
-msgstr "Añadir una nota interna..."
-
-#. module: pxgo_project_custom
-#: field:project.scrum.us,to_invoice:0
-msgid "Amount invoice"
-msgstr "Importe factura"
-
-#. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_tree__add_invoice
-#: field:project.scrum.sprint,to_invoice:0
-#: view:project.scrum.us:pxgo_project_custom.view_scrum_product_us_tree_add_boolean
-msgid "Amount to invoice"
-msgstr "Importe a facturar"
-
-#. module: pxgo_project_custom
 #: model:ir.model,name:pxgo_project_custom.model_account_analytic_account
 msgid "Analytic Account"
 msgstr "Cuenta analítica"
 
 #. module: pxgo_project_custom
-#: field:project.issue,project_scrum_product_backlog_id:0
-msgid "Backlog"
-msgstr "Backlog"
-
-#. module: pxgo_project_custom
-#: field:project.scrum.us,billable:0
-msgid "Billable"
-msgstr "Facturable"
-
-#. module: pxgo_project_custom
-#: view:unify.issues:pxgo_project_custom.view_unify_issues
+#: model:ir.ui.view,arch_db:pxgo_project_custom.view_unify_issues
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
-msgid "Close Month"
-msgstr "Mes cierre"
-
-#. module: pxgo_project_custom
-#: field:unify.issues,create_uid:0
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: pxgo_project_custom
-#: field:unify.issues,create_date:0
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues_create_date
 msgid "Created on"
-msgstr "Creado el"
+msgstr "Creado en"
 
 #. module: pxgo_project_custom
-#: field:project.scrum.sprint,planned_invoice_date:0
-msgid "Fecha estimada factura"
-msgstr "Fecha estimada factura"
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
 
 #. module: pxgo_project_custom
-#: field:project.project,fix_by_sprint:0
-msgid "Fijo por sprint (gestión)"
-msgstr "Fijo por sprint (gestión)"
-
-#. module: pxgo_project_custom
-#: selection:project.scrum.sprint,type:0
-msgid "Gestión"
-msgstr "Gestión"
-
-#. module: pxgo_project_custom
-#: field:unify.issues,id:0
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues_id
 msgid "ID"
 msgstr "ID"
 
 #. module: pxgo_project_custom
-#: field:project.scrum.sprint,fix_by_sprint:0
-msgid "Importe fijo"
-msgstr "Importe fijo"
-
-#. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
-msgid "In Validation"
-msgstr "En validación"
-
-#. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
-msgid "In Validation Sprints"
-msgstr "Sprints en validación"
-
-#. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
-msgid "Invoice Month"
-msgstr "Mes factura"
-
-#. module: pxgo_project_custom
-#: field:project.scrum.us,invoiced:0
-msgid "Invoiced"
-msgstr "Facturado"
-
-#. module: pxgo_project_custom
-#: view:unify.issues:pxgo_project_custom.view_unify_issues
+#: model:ir.ui.view,arch_db:pxgo_project_custom.view_unify_issues
 msgid "Issue to remove"
 msgstr "Incidencia a borrar"
 
 #. module: pxgo_project_custom
-#: field:unify.issues,issues_remove_ids:0
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues_issues_remove_ids
 msgid "Issues"
 msgstr "Incidencias"
 
 #. module: pxgo_project_custom
-#: field:unify.issues,write_uid:0
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: pxgo_project_custom
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues_write_uid
 msgid "Last Updated by"
-msgstr "Últ. actualización por"
+msgstr "Última actualización de"
 
 #. module: pxgo_project_custom
-#: field:unify.issues,write_date:0
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues_write_date
 msgid "Last Updated on"
-msgstr "Últ. actualización el"
+msgstr "Última actualización en"
 
 #. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
-msgid "Month"
-msgstr "Mes"
-
-#. module: pxgo_project_custom
-#: field:project.scrum.sprint,no_fix_sum:0
-msgid "NO sumar importe fijo"
-msgstr "No sumar importe fijo"
-
-#. module: pxgo_project_custom
-#: view:project.project:pxgo_project_custom.edit_project_add_float
+#: model:ir.ui.view,arch_db:pxgo_project_custom.edit_project_add_float
 msgid "Notes"
 msgstr "Notas"
 
 #. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
-msgid "Open"
-msgstr "Abierto"
-
-#. module: pxgo_project_custom
-#: field:project.scrum.us,point_price:0
-msgid "Precio PH"
-msgstr "Precio PH"
-
-#. module: pxgo_project_custom
-#: field:project.project,price_history_point:0
-msgid "Price history point"
-msgstr "Precio punto de historia"
-
-#. module: pxgo_project_custom
-#: field:project.scrum.us,product_id:0
-msgid "Product"
-msgstr "Producto"
-
-#. module: pxgo_project_custom
 #: model:ir.model,name:pxgo_project_custom.model_project_project
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
 msgid "Project"
 msgstr "Proyecto"
 
@@ -184,75 +86,23 @@ msgid "Project Issue"
 msgstr "Incidencia proyecto"
 
 #. module: pxgo_project_custom
-#: model:ir.model,name:pxgo_project_custom.model_project_scrum_sprint
-msgid "Project Scrum Sprint"
-msgstr "Sprints"
-
-#. module: pxgo_project_custom
-#: model:ir.model,name:pxgo_project_custom.model_project_scrum_us
-msgid "Project Scrum Use Stories"
-msgstr "Historias de usuario"
-
-#. module: pxgo_project_custom
 #: model:res.groups,name:pxgo_project_custom.group_project_invoice
 msgid "Project control Invoice"
 msgstr "Control facturación proyecto"
 
 #. module: pxgo_project_custom
-#: selection:project.scrum.sprint,type:0
-msgid "Proyecto"
-msgstr "Proyecto"
+#: model:ir.model,name:pxgo_project_custom.model_project_task
+msgid "Task"
+msgstr "Tarea"
 
 #. module: pxgo_project_custom
-#: help:project.scrum.sprint,fix_by_sprint:0
-msgid "Si 0, el marcado en proyecto"
-msgstr "Si 0, el marcado en proyecto"
-
-#. module: pxgo_project_custom
-#: selection:project.scrum.sprint,type:0
-msgid "Soporte"
-msgstr "Soporte"
-
-#. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
-msgid "Sprint Close Month"
-msgstr "Mes cierre sprint"
-
-#. module: pxgo_project_custom
-#: view:project.project:pxgo_project_custom.edit_project_add_float
-msgid "Team"
-msgstr "Equipo"
-
-#. module: pxgo_project_custom
-#: view:project.scrum.us:pxgo_project_custom.view_scrum_is_form_add_boolean
-#: field:project.scrum.us,tecnical_notes:0
-msgid "Technical notes"
-msgstr "Notas técnicas"
-
-#. module: pxgo_project_custom
-#: code:addons/pxgo_project_custom/project_scrum.py:126
-#, python-format
-msgid "The sprint '%s' is under validation process."
-msgstr "El sprint '%s' está bajo proceso de validación."
-
-#. module: pxgo_project_custom
-#: view:project.scrum.sprint:pxgo_project_custom.view_scrum_sprint_search__group_date_stop
-msgid "Tipo"
-msgstr "Tipo"
-
-#. module: pxgo_project_custom
-#: field:project.scrum.sprint,type:0
-msgid "Type"
-msgstr "Tipo"
-
-#. module: pxgo_project_custom
-#: field:unify.issues,unified_issue_id:0
+#: model:ir.model.fields,field_description:pxgo_project_custom.field_unify_issues_unified_issue_id
 msgid "Unified issue"
 msgstr "Incidencia unificada"
 
 #. module: pxgo_project_custom
 #: model:ir.actions.act_window,name:pxgo_project_custom.action_unify_issues
 #: model:ir.model,name:pxgo_project_custom.model_unify_issues
-#: view:unify.issues:pxgo_project_custom.view_unify_issues
+#: model:ir.ui.view,arch_db:pxgo_project_custom.view_unify_issues
 msgid "Unify issues"
 msgstr "Unificar incidencias"

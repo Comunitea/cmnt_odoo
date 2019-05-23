@@ -26,6 +26,14 @@ class UnifyIssues(models.TransientModel):
     _name = 'unify.issues'
     _description = 'Unify issues'
 
+    @api.model
+    def default_get(self, fields):
+        rec = super(UnifyIssues, self).default_get(fields)
+        if self.env.context.get('active_ids'):
+            rec.update({'issues_remove_ids':
+                        [(6, 0, self.env.context['active_ids'])]})
+        return rec
+
     issues_remove_ids = fields.\
         Many2many('project.issue', 'project_issue_remove', 'remove_issue_id',
                   'issue_id', 'Issues', required=True)
@@ -36,22 +44,14 @@ class UnifyIssues(models.TransientModel):
     def unify_issues(self):
         self.ensure_one()
         form_obj = self
-        issues_to_remove = []
-        messages = []
-        if form_obj.unified_issue_id:
-            if form_obj.unified_issue_id.message_ids:
-                for sms in form_obj.unified_issue_id.message_ids:
-                    messages.append(sms.id)
-            if form_obj.issues_remove_ids:
-                for issue_remove in form_obj.issues_remove_ids:
-                    if issue_remove.message_ids:
-                        for message in issue_remove.message_ids:
-                            messages.append(message.id)
-                    issues_to_remove.append(issue_remove.id)
-            if messages:
-                form_obj.unified_issue_id.write({'message_ids':
-                                                 [(6, 0, messages)]})
-            if issues_to_remove:
-                issues_to_remove.unlink()
+        issues_to_remove = form_obj.issues_remove_ids - \
+            form_obj.unified_issue_id
+        messages = self.env['mail.message'].\
+            search([('res_id', 'in', form_obj.issues_remove_ids.ids),
+                    ('res_id', '!=', form_obj.unified_issue_id.id),
+                    ('model', '=', 'project.issue')])
+        messages.write({'res_id': form_obj.unified_issue_id.id})
+        if issues_to_remove:
+            issues_to_remove.unlink()
 
         return {'type': 'ir.actions.act_window_close'}

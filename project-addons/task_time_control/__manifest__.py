@@ -38,11 +38,11 @@
     'depends': ['project'],
     'init_xml': [],
     'update_xml': [
-        'project_task.xml',
+        'views/project_task.xml',
         'wizard/task_time_control_confirm_wizard.xml',
         'security/ir.model.access.csv',
         'security/project_security.xml',
-        'project_data.xml'
+        'data/project_data.xml'
     ],
     'demo_xml': [
 

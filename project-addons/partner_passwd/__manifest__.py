@@ -33,7 +33,7 @@ decrypted when read.
     'author': 'Vertel AB',
     'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'sales_team'],
     'data': ['views/partner_view.xml',
              'security/ir.model.access.csv'],
     'external_dependencies': {

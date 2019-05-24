@@ -27,3 +27,9 @@ class ResUsers(models.Model):
     _inherit = "res.users"
 
     netelip_ext = fields.Char("Netelip Extension")
+
+
+class ResPartner(models.Model):
+
+    _name = "res.partner"
+    _inherit = ["res.partner", "phone.common"]

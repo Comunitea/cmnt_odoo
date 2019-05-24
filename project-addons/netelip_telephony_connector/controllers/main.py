@@ -29,7 +29,7 @@ import os
 
 class BaseNetelipPhoneController(http.Controller):
 
-    @http.route('/netelip/calls', type='http', auth='none')
+    @http.route('/netelip/calls', type='http', auth='none', csrf=False)
     def receive_calls(self, **req):
         origin_phone = req.get('src')
         dest_phone = req.get('dst')
@@ -113,7 +113,7 @@ class BaseNetelipPhoneController(http.Controller):
     def make_calls(self, **req):
         pass
 
-    @http.route('/netelip/reportcalls', type='http', auth='none')
+    @http.route('/netelip/reportcalls', type='http', auth='none', csrf=False)
     def report_calls(self, **req):
         calls = req.get('calls')
         phonecall_obj = http.request.env['crm.phonecall'].sudo()

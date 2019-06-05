@@ -34,5 +34,6 @@
         'crm_phone'
     ],
     'data': ['views/company_view.xml',
-             'views/res_users_view.xml'],
+             'views/res_users_view.xml',
+             'views/crm_phonecall_view.xml'],
 }

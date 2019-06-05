@@ -84,6 +84,7 @@ class BaseNetelipPhoneController(http.Controller):
                                       astimezone(pytz.utc)),
                             'name': call_id,
                             'partner_phone': phone,
+                            'direction': 'inbound',
                             'categ_id':
                             phonecall_obj.env.ref('crm.categ_phone2').id,
                             'partner_id':

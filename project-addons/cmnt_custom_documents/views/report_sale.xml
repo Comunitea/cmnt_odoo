@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <template id="report_saleorder_document_custom" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//p[@t-field='doc.date_order']" position="replace">
+            <p t-esc="doc.date_order[:10]" t-options='{"widget": "date"}'/>
+        </xpath>
+        <xpath expr="//t[@t-foreach='doc.order_lines_layouted()']/table/thead/tr" position="replace">
+            <tr>
+                <th>Description</th>
+                <th t-if="doc.show_subtotals" class="text-right" groups="sale.group_show_price_subtotal">Price</th>
+                <th t-if="doc.show_subtotals" class="text-right price_tax_included" groups="sale.group_show_price_total">Total Price</th>
+            </tr>
+        </xpath>
+        <xpath expr="//t[@t-as='layout_category']/t[@t-as='l']/tr" position="replace">
+            <tr>
+                <td><span t-field="l.name"/></td>
+                <td class="text-right" groups="sale.group_show_price_subtotal" t-if="doc.show_subtotals">
+                    <span t-field="l.price_subtotal"
+                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                </td>
+                <td class="text-right" groups="sale.group_show_price_total" t-if="doc.show_subtotals">
+                    <span t-field="l.price_total"
+                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                </td>
+            </tr>
+        </xpath>
+     </template>
+
+</odoo>

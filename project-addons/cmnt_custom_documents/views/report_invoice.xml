@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_invoice_document_custom" inherit_id="sale.report_invoice_layouted">
+            <xpath expr="//span[contains(@t-esc, '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))')]" position="replace">
+                <span t-esc="', '.join(map(lambda x: (x.name), l.invoice_line_tax_ids))"/>
+            </xpath>
+            <xpath expr="//span[@t-esc='amount_by_group[0] if len(o.tax_line_ids) &gt; 1 else (o.tax_line_ids.tax_id.description or o.tax_line_ids.tax_id.name)']" position="replace">
+                <span t-esc="amount_by_group[0] if len(o.tax_line_ids) &gt; 1 else o.tax_line_ids.tax_id.name"/>
+            </xpath>
+            <xpath expr="//span[@t-field='t.tax_id.description']" position="replace">
+                <span t-field="t.tax_id.name"/>
+            </xpath>
+            <xpath expr="//span[contains(@t-esc, '.join(map(lambda x: x.description or x.name, l.invoice_line_tax_ids))')]" position="replace">
+                <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_ids))"/>
+            </xpath>
+            <xpath expr="//div[@name='reference']" position="attributes">
+                <attribute name="class">col-xs-3</attribute>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

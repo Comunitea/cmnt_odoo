@@ -76,6 +76,8 @@ class ProjectTask(models.Model):
     @api.multi
     def work_start_btn(self):
         self.ensure_one()
+        working_stage_id = self.env.\
+            ref('task_time_control.project_tt_working').id
         start = fields.Datetime.now()
         start = fields.Datetime.from_string(start)
         user_task = self.env['time.control.user.task'].\
@@ -87,9 +89,7 @@ class ProjectTask(models.Model):
                     raise exceptions.UserError(_("Task is alredy started."))
                 return task.stop_task(task.id, start, user_task)
             else:
-                ttype = task.stage_find(task.project_id.id,
-                                        [('name', 'ilike', '%working%')])
-                task.write({'stage_id': ttype})
+                task.write({'stage_id': working_stage_id})
                 user_task.write({'work_start': start,
                                  'started_task': task.id})
         else:
@@ -99,9 +99,7 @@ class ProjectTask(models.Model):
                 'started_task': task.id
             }
             self.env['time.control.user.task'].create(args)
-            ttype = task.stage_find(task.project_id.id,
-                                    [('name', 'ilike', '%working%')])
-            task.write({'stage_id': ttype})
+            task.write({'stage_id': working_stage_id})
         return True
 
     @api.multi

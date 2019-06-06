@@ -62,6 +62,9 @@ class TaskTimeControlConfirmWizard(models.TransientModel):
     @api.multi
     def close_confirm(self):
         self.ensure_one()
+        devel_stage_id = self.env.ref('project.project_tt_development').id
+        working_stage_id = self.env.\
+            ref('task_time_control.project_tt_working').id
         wizard = self
         user_task = wizard.user_task
         started_task = user_task.started_task
@@ -86,14 +89,10 @@ class TaskTimeControlConfirmWizard(models.TransientModel):
         other_users_in_task = self.env['time.control.user.task'].\
             search([('started_task', '=', started_task.id)])
         if not other_users_in_task:
-            ttype = started_task.stage_find(started_task.project_id.id,
-                                            [('name', 'ilike', '%devel%')])
-            started_task.write({'stage_id': ttype})
+            started_task.write({'stage_id': devel_stage_id})
         if wizard.task_to_start:
             start_id = wizard.task_to_start
-            ttype = start_id.stage_find(start_id.project_id.id,
-                                        [('name', 'ilike', '%working%')])
-            start_id.write({'stage_id': ttype})
+            start_id.write({'stage_id': working_stage_id})
             user_task.write({'work_start': end_datetime,
                              'started_task': start_id.id})
         return {'type': 'ir.actions.act_window_close'}

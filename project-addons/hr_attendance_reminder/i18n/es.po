@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* hr_attendance_reminder
+#       * hr_attendance_reminder
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-10 10:16+0000\n"
-"PO-Revision-Date: 2019-05-10 10:16+0000\n"
+"POT-Creation-Date: 2019-05-27 12:56+0000\n"
+"PO-Revision-Date: 2019-05-27 12:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,11 @@ msgid "Attendance Reminder"
 msgstr "Attendance Reminder"
 
 #. module: hr_attendance_reminder
+#: model:ir.ui.menu,name:hr_attendance_reminder.menu_hr_attendance_view_attendances
+msgid "Attendances"
+msgstr "Asistencias"
+
+#. module: hr_attendance_reminder
 #: model:ir.model.fields,help:hr_attendance_reminder.field_resource_calendar_reminder_delay
 msgid "Delay time before send the reminder to check in (in minutes)"
 msgstr "Tiempo de retardo antes de enviar el recordatorio de registro de entrada (en minutos)"
@@ -47,3 +52,8 @@ msgstr "Tiempo de retardo antes de enviar el recordatorio de registro de entrada
 #: model:ir.model.fields,field_description:hr_attendance_reminder.field_resource_calendar_reminder_delay
 msgid "Reminder delay"
 msgstr "Retardo de recordatorio"
+
+#. module: hr_attendance_reminder
+#: model:ir.model,name:hr_attendance_reminder.model_resource_calendar
+msgid "Resource Calendar"
+msgstr "Calendario recurso"

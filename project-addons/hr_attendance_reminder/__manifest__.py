@@ -16,7 +16,9 @@
     'data': [
         'data/ir_cron.xml',
         'data/mail_template.xml',
-        'views/resource_calendar.xml'
+        'views/resource_calendar.xml',
+        'views/hr_attendance_view.xml',
+        'security/hr_attendance_security.xml'
     ],
     'installable': True,
 }

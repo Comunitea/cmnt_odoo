@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_hr_attendance_view_attendances" name="Attendances" parent="hr_attendance.menu_hr_attendance_root" sequence="11" groups="hr.group_hr_attendance" action="hr_attendance.hr_attendance_action"/>
+
+</odoo>

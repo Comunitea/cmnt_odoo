@@ -85,8 +85,6 @@ class BaseNetelipPhoneController(http.Controller):
                             'name': call_id,
                             'partner_phone': phone,
                             'direction': 'inbound',
-                            'categ_id':
-                            phonecall_obj.env.ref('crm.categ_phone2').id,
                             'partner_id':
                             partners_data and partners_data[1] or False})
                 user = http.request.env['res.users'].sudo().\
@@ -158,6 +156,7 @@ class BaseNetelipPhoneController(http.Controller):
                         call.write({'user_id': user.id,
                                     'state': 'done',
                                     'bypassed': (call.user_id and
+                                                 call.user_id.id != 1 and
                                                  call.user_id != user) and
                                     True or False,
                                     'description':
@@ -165,4 +164,4 @@ class BaseNetelipPhoneController(http.Controller):
                 else:
                     call.write({'state': 'cancel',
                                 'description':
-                                call.description + u'\n' + description})
+                                (call.description or '') + u'\n' + description})

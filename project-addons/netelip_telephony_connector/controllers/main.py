@@ -135,7 +135,7 @@ class BaseNetelipPhoneController(http.Controller):
             if call:
                 info = description
                 if 'Ext' in info:
-                    if 'APIVoice' in call.description:
+                    if call.description and 'APIVoice' in call.description:
                         if client.check(call.description):
                             fname = u'/tmp/' + call.description.split('/')[-1]
                             client.download(call.description, fname)

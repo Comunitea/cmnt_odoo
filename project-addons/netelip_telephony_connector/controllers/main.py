@@ -178,7 +178,8 @@ class BaseNetelipPhoneController(http.Controller):
                 if dst and start_date and src:
                     partners_data = partner_obj.sudo().\
                         get_record_from_phone_number(dst)
-                    extension = src.split('Ext ')[-1]
+                    extension = src.replace("(", "").replace(")", "").\
+                        split('Ext ')[-1]
                     user = user_obj.search([('netelip_ext', '=', extension)],
                                            limit=1)
                     phonecall_obj.\

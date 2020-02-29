@@ -93,20 +93,22 @@ class BaseNetelipPhoneController(http.Controller):
                     phonecall_id.user_id = user.id
                 userfield = phonecall_id.id
             elif userfield != 'C2':
-                phonecall_obj = http.request.env['crm.phonecall'].sudo()
-                phonecall = phonecall_obj.search([('name', '=', call_id)],
-                                                 limit=1)
-                if phonecall:
-                    vals = {'description': description}
-                    if call_answered_duration:
-                        vals['duration'] = float(call_answered_duration)/100.0
-                    phonecall.write(vals)
                 command = "hangup"
                 options = "''"
             if command:
                 return json.dumps({'command': command,
                                    'options': options,
                                    'userfield': userfield})
+        elif origin_phone and dest_phone and call_id:
+            phonecall_obj = http.request.env['crm.phonecall'].sudo()
+            phonecall = phonecall_obj.search([('name', '=', call_id)],
+                                             limit=1)
+            if phonecall:
+                vals = {'description': description}
+                if call_answered_duration:
+                    vals['duration'] = float(call_answered_duration)/100.0
+                phonecall.write(vals)
+                return json.dumps({"response": "200"})
 
     @http.route('/netelip/new_call', type='http', auth='none')
     def make_calls(self, **req):
@@ -164,4 +166,5 @@ class BaseNetelipPhoneController(http.Controller):
                 else:
                     call.write({'state': 'cancel',
                                 'description':
-                                (call.description or '') + u'\n' + description})
+                                (call.description or '') + u'\n' +
+                                description})

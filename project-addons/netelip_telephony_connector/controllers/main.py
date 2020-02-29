@@ -99,7 +99,7 @@ class BaseNetelipPhoneController(http.Controller):
                 return json.dumps({'command': command,
                                    'options': options,
                                    'userfield': userfield})
-        elif origin_phone and dest_phone and call_id:
+        elif origin_phone and dest_phone and call_id and not typesrc:
             phonecall_obj = http.request.env['crm.phonecall'].sudo()
             phonecall = phonecall_obj.search([('name', '=', call_id)],
                                              limit=1)
@@ -108,7 +108,7 @@ class BaseNetelipPhoneController(http.Controller):
                 if call_answered_duration:
                     vals['duration'] = float(call_answered_duration)/100.0
                 phonecall.write(vals)
-                return json.dumps({"response": "200"})
+        return json.dumps({"response": "200"})
 
     @http.route('/netelip/new_call', type='http', auth='none')
     def make_calls(self, **req):
@@ -168,3 +168,4 @@ class BaseNetelipPhoneController(http.Controller):
                                 'description':
                                 (call.description or '') + u'\n' +
                                 description})
+        return json.dumps({"response": "200"})

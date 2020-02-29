@@ -157,6 +157,9 @@ class BaseNetelipPhoneController(http.Controller):
                     if user:
                         call.write({'user_id': user.id,
                                     'state': 'done',
+                                    'bypassed': (call.user_id and
+                                                 call.user_id != user) and
+                                    True or False,
                                     'description':
                                     call.description + u'\n' + description})
                 else:

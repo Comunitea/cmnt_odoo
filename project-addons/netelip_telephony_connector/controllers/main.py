@@ -118,6 +118,7 @@ class BaseNetelipPhoneController(http.Controller):
     def report_calls(self, **req):
         calls = req.get('calls')
         phonecall_obj = http.request.env['crm.phonecall'].sudo()
+        partner_obj = http.request.env['res.partner']
         user_obj = http.request.env['res.users'].sudo()
         options = {
             'webdav_hostname':
@@ -168,4 +169,34 @@ class BaseNetelipPhoneController(http.Controller):
                                 'description':
                                 (call.description or '') + u'\n' +
                                 description})
+            else:
+                start_date = call_data.get('startdate')
+                dst = call_data.get('dst')
+                src = call_data.get('src')
+                state = call_data.get('status')
+                call_answered_duration = call_data.get('duration')
+                if dst and start_date and src:
+                    partners_data = partner_obj.sudo().\
+                        get_record_from_phone_number(dst)
+                    extension = src.split('Ext ')[-1]
+                    user = user_obj.search([('netelip_ext', '=', extension)],
+                                           limit=1)
+                    phonecall_obj.\
+                        create({'date': fields.Datetime.
+                                to_string(pytz.timezone(phonecall_obj.env.
+                                                        user.tz).
+                                          localize(fields.Datetime.
+                                                   from_string(start_date)).
+                                          astimezone(pytz.utc)),
+                                'name': "Out Call %s" % dst,
+                                'partner_phone': dst,
+                                'direction': 'outbound',
+                                'user_id': user and user.id or 1,
+                                'duration': call_answered_duration and
+                                float(call_answered_duration)/100.0 or 0.0,
+                                'description': description,
+                                'state': state and state == 'cancel' and
+                                'cancel' or 'done',
+                                'partner_id':
+                                partners_data and partners_data[1] or False})
         return json.dumps({"response": "200"})

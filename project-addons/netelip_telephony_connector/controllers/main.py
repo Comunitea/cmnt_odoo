@@ -134,23 +134,23 @@ class BaseNetelipPhoneController(http.Controller):
             call = phonecall_obj.search([('name', '=', call_id)], limit=1)
             if call:
                 info = description
+                if call.description and 'APIVoice' in call.description:
+                    if client.check(call.description):
+                        fname = u'/tmp/' + call.description.split('/')[-1]
+                        client.download(call.description, fname)
+                        f = open(fname, 'r')
+                        encoded_string = base64.b64encode(f.read())
+                        os.remove(fname)
+                        fname = fname.split('/')[-1]
+                        http.request.env['ir.attachment'].sudo().\
+                            create({'name': fname,
+                                    'res_name': call.name,
+                                    'res_model': 'crm.phonecall',
+                                    'res_id': call.id,
+                                    'datas': encoded_string,
+                                    'datas_fname': fname})
+                        client.clean(call.description)
                 if 'Ext' in info:
-                    if call.description and 'APIVoice' in call.description:
-                        if client.check(call.description):
-                            fname = u'/tmp/' + call.description.split('/')[-1]
-                            client.download(call.description, fname)
-                            f = open(fname, 'r')
-                            encoded_string = base64.b64encode(f.read())
-                            os.remove(fname)
-                            fname = fname.split('/')[-1]
-                            http.request.env['ir.attachment'].sudo().\
-                                create({'name': fname,
-                                        'res_name': call.name,
-                                        'res_model': 'crm.phonecall',
-                                        'res_id': call.id,
-                                        'datas': encoded_string,
-                                        'datas_fname': fname})
-                            client.clean(call.description)
                     extension = info.split(' ')[-1]
                     user = user_obj.search([('netelip_ext', '=', extension)],
                                            limit=1)

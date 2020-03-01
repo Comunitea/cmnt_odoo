@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_follow_type_user,project.follow.type.user,model_project_follow_type,project.group_project_user,1,0,0,0
+access_project_follow_type_manager,project.follow.type manager,model_project_follow_type,project.group_project_manager,1,1,1,1
+access_project_key_result_user,project.key.result.user,model_project_key_result,project.group_project_user,1,1,1,0
+access_project_key_result_manager,project.key.result.manager,model_project_key_result,project.group_project_manager,1,1,1,1
+access_project_key_result_manual_input_user,project.key.result.manual.input.user,model_project_key_result_manual_input,project.group_project_user,1,1,1,0
+access_project_key_result_manual_input_manager,project.key.result.manual.input.manager,model_project_key_result_manual_input,project.group_project_manager,1,1,1,1

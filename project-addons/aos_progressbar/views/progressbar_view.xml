@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="assets_backend" name="progressbar_tree_aos" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/aos_progressbar/static/src/js/progressbar_tree.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="project.open_view_project_all" model="ir.actions.act_window">
+        <field name="domain">[('okr_project', '=', False)]</field>
+    </record>
+
+    <record id="project.open_view_project_all_config" model="ir.actions.act_window">
+        <field name="domain">[('okr_project', '=', False)]</field>
+    </record>
+
+    <record id="project.action_view_task" model="ir.actions.act_window">
+        <field name="domain">[('okr_project', '=', False)]</field>
+    </record>
+
+    <!-- OKR -->
+
+    <record id="view_task_okr_form" model="ir.ui.view">
+        <field name="name">project.task.form</field>
+        <field name="model">project.task</field>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Task" class="o_form_project_tasks">
+                <sheet string="OKR Task">
+                <div class="oe_button_box" name="button_box">
+                    <button name="toggle_active" type="object" groups="base.group_user"
+                            class="oe_stat_button" icon="fa-archive">
+                        <field name="active" widget="boolean_button"
+                            options='{"terminology": "archive"}'/>
+                    </button>
+                </div>
+                <div class="oe_title">
+                    <h1 class="o_row">
+                        <field name="priority" widget="priority"/>
+                        <field name="name" placeholder="OKR Title..."/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="project_id" domain="[('active', '=', True),('okr_project', '=', True)]" context="{'default_use_tasks':1, 'default_okr_project': 1}"/>
+                        <field name="user_id" class="o_task_user_field" options='{"no_open": True}'/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                    </group>
+                    <group>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="partner_id"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="extra_info" string="Key Results">
+                        <field name="key_result_ids" colspan="4">
+                            <tree decoration-danger="failed == True">
+                                <field name="name"/>
+                                <field name="expected_result"/>
+                                <field name="result"/>
+                                <field name="progress" widget="progressbar"/>
+                                <field name="failed"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="name" colspan="4"/>
+                                    <group>
+                                        <field name="expected_result"/>
+                                        <field name="follow_type_id"/>
+                                        <field name="failed" invisible="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="compute_type"/>
+                                        <field name="compute"/>
+                                    </group>
+                                    <group string="Automatic conf." colspan="4" attrs="{'invisible': [('compute_type', '!=', 'auto')]}">
+                                        <field name="model_id" attrs="{'required': [('compute_type', '=', 'auto')]}"/>
+                                        <field name="automatic_domain" attrs="{'required': [('compute_type', '=', 'auto')]}"/>
+                                        <field name="automatic_field" attrs="{'required': [('compute_type', '=', 'auto'),('compute', '!=', 'count')]}"/>
+                                    </group>
+                                    <group string="Manual conf." colspan="4" attrs="{'invisible': [('compute_type', '=', 'auto')]}">
+                                        <field name="manual_input_ids" colspan="4">
+                                            <tree editable="top" string="Manual inputs">
+                                                <field name="create_date"/>
+                                                <field name="create_uid"/>
+                                                <field name="name"/>
+                                                <field name="value"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page name="description_page" string="Description">
+                        <field name="description" type="html"/>
+                        <div class="oe_clear"/>
+                    </page>
+                </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="open_view_project_okr" model="ir.actions.act_window">
+        <field name="name">OKR Projects</field>
+        <field name="res_model">project.project</field>
+        <field name="view_type">form</field>
+        <field name="domain">[('okr_project', '=', True)]</field>
+        <field name="context">{'default_okr_project': True}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="project.view_project_project_filter"/>
+        <field name="target">main</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new OKR project.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_task_okr_tree" model="ir.ui.view">
+        <field name="name">project.task.tree</field>
+        <field name="model">project.task</field>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="OKRs" decoration-danger="warning == True" decoration-success="okr_progress &gt;= 75.0">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="user_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="okr_progress" widget="progressbar"/>
+                <field name="warning" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_task_okr_calendar" model="ir.ui.view">
+        <field name="name">project.task.calendar</field>
+        <field name="model">project.task</field>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <calendar color="user_id" date_start="date_start" string="Tasks" mode="month" date_stop="date_end">
+                <field name="name"/>
+                <field name="project_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_view_task_okr" model="ir.actions.act_window">
+        <field name="name">OKR Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="context">{'default_okr_project': True}</field>
+        <field name="domain">[('okr_project', '=', True)]</field>
+        <field name="search_view_id" ref="project.view_task_search_form"/>
+    </record>
+    <record id="open_view_task_okr_list_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="action_view_task_okr"/>
+        <field name="view_id" ref="view_task_okr_tree"/>
+    </record>
+    <record id="open_view_task_okr_list_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="act_window_id" ref="action_view_task_okr"/>
+        <field name="view_id" ref="view_task_okr_form"/>
+    </record>
+    <record id="open_view_task_okr_list_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">calendar</field>
+        <field name="act_window_id" ref="action_view_task_okr"/>
+        <field name="view_id" ref="view_task_okr_calendar"/>
+    </record>
+
+    <menuitem id="menu_okr_config" name="OKR" parent="project.menu_main_pm" sequence="3"/>
+
+    <menuitem action="open_view_project_okr" id="menu_okr_projects_config" name="OKR Projects" parent="menu_okr_config" sequence="10"/>
+    <menuitem action="action_view_task_okr" id="menu_okr_tasks_config" name="OKR Tasks" parent="menu_okr_config" sequence="20"/>
+
+</odoo>

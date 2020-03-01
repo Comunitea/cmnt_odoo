@@ -1,0 +1,292 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#       * project_okr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-01 19:25+0000\n"
+"PO-Revision-Date: 2020-03-01 19:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_active
+msgid "Active"
+msgstr "Activo"
+
+#. module: project_okr
+#: selection:project.key.result,compute_type:0
+msgid "Automatic"
+msgstr "Automático"
+
+#. module: project_okr
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_form
+msgid "Automatic conf."
+msgstr "Conf. automática"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_automatic_domain
+msgid "Automatic search domain"
+msgstr "Dominio búsqueda autom."
+
+#. module: project_okr
+#: selection:project.key.result,compute:0
+msgid "Avg"
+msgstr "Media"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_compute
+msgid "Calculation"
+msgstr "Cálculo"
+
+#. module: project_okr
+#: model:ir.model.fields,help:project_okr.field_project_key_result_automatic_domain
+msgid "Can use 'task' in the domain referring to key result task as obj."
+msgstr "Puede usar 'task' en el dominio referencando a la tarea del resultado clave como objeto."
+
+#. module: project_okr
+#: model:ir.actions.act_window,help:project_okr.open_view_project_okr
+msgid "Click to create a new OKR project."
+msgstr "Click para crear un nuevo proyecto OKR."
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_compute_type
+msgid "Compute type"
+msgstr "Tipo de cálculo"
+
+#. module: project_okr
+#: selection:project.key.result,compute:0
+msgid "Count"
+msgstr "Contador"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_create_date
+msgid "Created"
+msgstr "Creado"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_follow_type_create_uid
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_follow_type_create_date
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_create_uid
+msgid "Creator"
+msgstr "Autor"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_follow_type_name
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_name
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_form
+msgid "Description"
+msgstr "Descripción"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_follow_type_display_name
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_display_name
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_expected_result
+msgid "Expected Result"
+msgstr "Resultado esperado"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_failed
+msgid "Failed"
+msgstr "Erróneo"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_automatic_field
+msgid "Field to Sum"
+msgstr "Campo para cálculo"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_follow_type_id
+msgid "Follow type"
+msgstr "Tipo de seguimiento"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_follow_type_id
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_id
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_key_result_id
+msgid "Key Result"
+msgstr "Resultado clave"
+
+#. module: project_okr
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_form
+msgid "Key Results"
+msgstr "Resultados clave"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_task_key_result_ids
+msgid "Key results"
+msgstr "Resultados clave"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_follow_type___last_update
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result___last_update
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_follow_type_write_uid
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_write_uid
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_follow_type_write_date
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_write_date
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: project_okr
+#: selection:project.key.result,compute_type:0
+msgid "Manual"
+msgstr "Manual"
+
+#. module: project_okr
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_form
+msgid "Manual conf."
+msgstr "Conf. manual"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_ids
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_form
+msgid "Manual inputs"
+msgstr "Imputaciones manuales"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_automatic_model
+msgid "Model"
+msgstr "Modelo"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_name
+msgid "Motivation"
+msgstr "Motivo"
+
+#. module: project_okr
+#: model:ir.ui.menu,name:project_okr.menu_okr_config
+msgid "OKR"
+msgstr "OKR"
+
+#. module: project_okr
+#: model:ir.actions.act_window,name:project_okr.open_view_project_okr
+#: model:ir.ui.menu,name:project_okr.menu_okr_projects_config
+msgid "OKR Projects"
+msgstr "Proyectos OKR"
+
+#. module: project_okr
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_form
+msgid "OKR Task"
+msgstr "Tarea OKR"
+
+#. module: project_okr
+#: model:ir.actions.act_window,name:project_okr.action_view_task_okr
+#: model:ir.ui.menu,name:project_okr.menu_okr_tasks_config
+msgid "OKR Tasks"
+msgstr "Tareas OKR"
+
+#. module: project_okr
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_form
+msgid "OKR Title..."
+msgstr "Título OKR..."
+
+#. module: project_okr
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_tree
+msgid "OKRs"
+msgstr "OKRs"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_project_okr_project
+#: model:ir.model.fields,field_description:project_okr.field_project_task_okr_project
+msgid "Okr project"
+msgstr "Proyecto Okr"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_progress
+#: model:ir.model.fields,field_description:project_okr.field_project_task_okr_progress
+msgid "Progress"
+msgstr "Progreso"
+
+#. module: project_okr
+#: model:ir.model,name:project_okr.model_project_project
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_model_id
+msgid "Related Document Model"
+msgstr "Modelo de documento relacionado"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_result
+msgid "Result"
+msgstr "Resultado"
+
+#. module: project_okr
+#: selection:project.key.result,compute:0
+msgid "Sum"
+msgstr "Suma"
+
+#. module: project_okr
+#: model:ir.model,name:project_okr.model_project_task
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_task_id
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_form
+msgid "Task"
+msgstr "Tarea"
+
+#. module: project_okr
+#: model:ir.ui.view,arch_db:project_okr.view_task_okr_calendar
+msgid "Tasks"
+msgstr "Tareas"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_key_result_manual_input_value
+msgid "Value"
+msgstr "Valor"
+
+#. module: project_okr
+#: model:ir.model.fields,field_description:project_okr.field_project_task_warning
+msgid "Warning"
+msgstr "Aviso"
+
+#. module: project_okr
+#: model:ir.model,name:project_okr.model_project_follow_type
+msgid "project.follow.type"
+msgstr "project.follow.type"
+
+#. module: project_okr
+#: model:ir.model,name:project_okr.model_project_key_result
+msgid "project.key.result"
+msgstr "project.key.result"
+
+#. module: project_okr
+#: model:ir.model,name:project_okr.model_project_key_result_manual_input
+msgid "project.key.result.manual.input"
+msgstr "project.key.result.manual.input"

@@ -78,7 +78,7 @@ class ProjectKeyResult(models.Model):
                 eval_dict = {'task': res.task_id}
                 try:
                     domain = eval(res.automatic_domain, eval_dict)
-                    objs = self.env[res.automatic_model].search(domain)
+                    objs = self.env[res.automatic_model].sudo().search(domain)
                 except Exception:
                     res.failed = True
                     objs = []

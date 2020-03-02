@@ -99,7 +99,7 @@ class BaseNetelipPhoneController(http.Controller):
                 return json.dumps({'command': command,
                                    'options': options,
                                    'userfield': userfield})
-        elif origin_phone and dest_phone and call_id and not typesrc:
+        elif origin_phone and dest_phone and call_id:
             phonecall_obj = http.request.env['crm.phonecall'].sudo()
             phonecall = phonecall_obj.search([('name', '=', call_id)],
                                              limit=1)

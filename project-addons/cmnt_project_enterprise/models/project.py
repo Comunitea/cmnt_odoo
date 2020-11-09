@@ -34,6 +34,11 @@ class Task(models.Model):
     @api.multi
     def create_forecast(self):
         view_id = self.env.ref('project_forecast.project_forecast_view_form').id
+        date_end = datetime.strftime(datetime.
+                                 strptime(self.date_start,
+                                          '%Y-%m-%d %H:%M:%S') +
+                                 timedelta(days=self.planned_hours/8),
+                                 '%Y-%m-%d %H:%M:%S')
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'project.forecast',
@@ -47,7 +52,7 @@ class Task(models.Model):
                 'default_user_id': self.user_id.id,
                 'default_resource_hours': self.planned_hours,
                 'default_start_date': self.date_start,
-                'default_end_date': self.date_start + + timedelta(days=self.planned_hours/8),
+                'default_end_date': date_end,
             }
         }
             

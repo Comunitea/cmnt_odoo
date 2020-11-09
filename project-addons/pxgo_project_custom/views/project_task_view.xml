@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="project_task_sale_domain">
+            <field name="name">Project Task sale domain</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="sale_timesheet.view_sale_service_inherit_form2"/>
+            <field name="arch" type="xml">
+                <field name="sale_line_id" position="before">
+                    <field name="sale_id"/>
+                </field>
+                <field name="sale_line_id" position="attributes">
+                    <attribute name="domain">[('order_id', '=', sale_id)]</attribute>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -37,6 +37,7 @@
     'data': [
         "views/project_issue_view.xml",
         "views/project_view.xml",
+        "views/project_task_view.xml",
         "data/account_analytic_account_seq.xml",
         "wizard/unify_issues_wzd_view.xml"
     ],

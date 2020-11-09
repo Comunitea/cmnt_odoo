@@ -27,6 +27,11 @@ class ProjectTask(models.Model):
     _inherit = "project.task"
 
     description = fields.Html()
+    sale_id = fields.Many2one(comodel_name='sale.order',
+        related='project_id.sale_id',
+        string='Sale Order',
+        store=True,
+        readonly=True,)
 
     @api.multi
     def write(self, vals):

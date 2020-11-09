@@ -44,5 +44,6 @@ class Task(models.Model):
                 'default_resource_hours': self.planned_hours,
                 'default_start_date': self.date_start,
                 'default_end_date': self.date_start + + timedelta(days=self.planned_hours/8),
+            }
         }
             

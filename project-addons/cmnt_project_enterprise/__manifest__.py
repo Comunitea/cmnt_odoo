@@ -33,5 +33,7 @@
     'depends': [
         'project_forecast',
     ],
-    'data': [],
+    'data': [
+        'data/project_forecast_data.xml'
+        ],
 }

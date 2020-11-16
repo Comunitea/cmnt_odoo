@@ -1,0 +1,33 @@
+<odoo>
+    <record id="action_generate_forecast_deadline" model="ir.actions.server">
+        <field name="name">Generate Forecast from deadline</field>
+        <field name="model_id" ref="model_project_task"/>
+        <field name="state">code</field>
+        <field name="code">
+
+task_obj = env['project.task']
+tasks = task_obj.browse(context.get('active_ids'))
+forecast_ids = []
+for task in tasks:
+    forecast_ids.append(task.create_forecast_from_deadline())
+
+view_id = env['ir.model.data'].get_object_reference('project_forecast', 'project_forecast_view_gantt')[1]
+
+action = {
+    "type": "ir.actions.act_window",
+    "res_model": "project.forecast",
+    "view_mode": "gantt",
+    "view_type": "gantt",
+    "view_id": view_id,
+    "domain": [('id', 'in', forecast_ids)]
+}
+        </field>
+    </record>
+
+    <record id="ir_generate_forecast_deadline" model="ir.values">
+        <field name="key2" eval="'client_action_multi'"/>
+        <field name="model" eval="'project.task'"/>
+        <field name="name">Generate Forecast</field>
+        <field name="value" eval="'ir.actions.server,%d'%action_generate_forecast_deadline"/>
+    </record>
+</odoo>

@@ -32,6 +32,10 @@ class Project(models.Model):
 class Task(models.Model):
     _inherit = 'project.task'
 
+    forecast_ids = fields.One2many('project.forecast',
+                                    'task_id',
+                                    string='Forecasts')
+
     @api.multi
     def create_forecast_from_deadline(self):
         forecast_obj = self.env['project.forecast']

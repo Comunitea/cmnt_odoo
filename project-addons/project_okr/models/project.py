@@ -34,7 +34,7 @@ class ProjectTask(models.Model):
 
     okr_project = fields.Boolean()
     key_result_ids = fields.One2many('project.key.result', 'task_id',
-                                     "Key results")
+                                     "Key results", copy=True)
     okr_progress = fields.Float("Progress", digits=(16, 2),
                                 compute="_get_okr_progress")
     warning = fields.Boolean(compute="_get_okr_progress")

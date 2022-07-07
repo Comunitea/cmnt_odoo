@@ -130,7 +130,7 @@ class BaseNetelipPhoneController(http.Controller):
         client = wc.Client(options)
         for call_data in json.loads(calls):
             call_id = call_data['ID']
-            description = call_data["dstname"]
+            description = call_data["dstname"] or ''
             call = phonecall_obj.search([('name', '=', call_id)], limit=1)
             if call:
                 info = description
@@ -162,7 +162,7 @@ class BaseNetelipPhoneController(http.Controller):
                                                  call.user_id != user) and
                                     True or False,
                                     'description':
-                                    call.description + u'\n' + description})
+                                    (call.description or '') + u'\n' + description})
                 else:
                     call.write({'state': 'cancel',
                                 'description':

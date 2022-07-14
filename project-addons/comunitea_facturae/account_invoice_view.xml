@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.inherit.view.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="after">
+                <field name="facturae_start_date"/>
+                <field name="facturae_end_date"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <template id="template_facturae_custom" inherit_id="l10n_es_facturae.template_facturae">
+        <xpath expr="//LineItemPeriod" position="replace">
+            <LineItemPeriod
+            t-if="line.facturae_start_date and line.facturae_end_date"
+        >
+            <StartDate t-esc="line.facturae_start_date" />
+            <EndDate t-esc="line.facturae_end_date" />
+        </LineItemPeriod>
+        </xpath>
+    </template>
+</odoo>

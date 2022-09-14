@@ -11,3 +11,11 @@ class AccountInvoiceLine(models.Model):
     )
     facturae_end_date = fields.Date(
     )
+
+
+class AccountInvoice(models.Model):
+
+    _inherit = 'account.invoice'
+
+    facturae_start_date = fields.Date()
+    facturae_end_date = fields.Date()

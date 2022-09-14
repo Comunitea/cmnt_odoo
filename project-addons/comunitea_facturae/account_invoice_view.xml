@@ -23,5 +23,12 @@
             <EndDate t-esc="line.facturae_end_date" />
         </LineItemPeriod>
         </xpath>
+        <xpath expr="//InvoicingPeriod" position="attributes">
+            <attribute name="t-if">invoice.facturae_start_date and invoice.facturae_end_date</attribute>
+        </xpath>
+        <xpath expr="//InvoicingPeriod" position="inside">
+            <StartDate t-esc="invoice.facturae_start_date"/>
+            <EndDate t-esc="invoice.facturae_end_date"/>
+        </xpath>
     </template>
 </odoo>

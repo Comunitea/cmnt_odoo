@@ -7,14 +7,9 @@ from openerp import fields, models
 class AccountInvoiceLine(models.Model):
 
     _inherit = 'account.invoice.line'
-    facturae_start_date = fields.Date(
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
-    facturae_end_date = fields.Date(
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-    )
+
+    facturae_start_date = fields.Date()
+    facturae_end_date = fields.Date()
 
 
 class AccountInvoice(models.Model):

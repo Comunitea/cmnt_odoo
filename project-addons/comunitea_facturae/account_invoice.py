@@ -15,3 +15,12 @@ class AccountInvoiceLine(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
     )
+
+
+class AccountInvoice(models.Model):
+
+    _inherit = 'account.invoice'
+
+    facturae_start_date = fields.Date()
+    facturae_end_date = fields.Date()
+

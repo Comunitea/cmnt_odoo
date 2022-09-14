@@ -21,6 +21,11 @@ class AccountInvoice(models.Model):
 
     _inherit = 'account.invoice'
 
-    facturae_start_date = fields.Date()
-    facturae_end_date = fields.Date()
-
+    facturae_start_date = fields.Date(
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+    )
+    facturae_end_date = fields.Date(
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+    )
